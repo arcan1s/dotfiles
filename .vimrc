@@ -1,10 +1,10 @@
 "" .vimrc by arcanis
-"" 2012-12-14
+"" 2012-12-15
 
 
 "" Внешний вид
 " Цветовая схема
-colorscheme evening 
+colorscheme koehler
 
 " Число строк внизу и вверху экрана без прокрутки
 set scrolloff=3
@@ -67,7 +67,7 @@ set ignorecase
 
 "" Навигация
 " При вставке фрагмента сохраняет отступ
-set pastetoggle=
+set pastetoggle=<F2>
 
 " Перемещать курсор на следующую строку при нажатии на клавиши
 set whichwrap=b,<,>,[,],l,h
