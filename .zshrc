@@ -1,9 +1,9 @@
-# История команд
+# history
 HISTFILE=~/.histfile
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=500000
+SAVEHIST=500000
 
-# Назначения клавиш
+# bindkeys
 bindkey '^[[A' up-line-or-search                # up arrow for back-history-search
 bindkey '^[[B' down-line-or-search              # down arrow for fwd-history-search
 bindkey ';5D' backward-word                     # ctrl+left 
@@ -15,41 +15,61 @@ bindkey '\e[4~' end-of-line                     # end
 bindkey '\e[5~' up-line-or-history              # page-up
 bindkey '\e[6~' down-line-or-history            # page-down
 
-# Автокомплит
+# autocomplit
 autoload -U compinit promptinit
 compinit
 promptinit
 zstyle ':completion:*' insert-tab false         # Автокомплит для первого символа
+zstyle ':completion:*' max-errors 2  
 
-# Autocd
+# autocd
 setopt autocd
 
-# Correct
+# correct
 setopt CORRECT_ALL
-SPROMPT="Correct '%R' to '%r' ? ([Y]es/[N]o/[E]dit/[A]bort)"
+SPROMPT="Correct '%R' to '%r' ? ([Y]es/[N]o/[E]dit/[A]bort) "
 
-# Disable beeps
+# append history
+setopt APPEND_HISTORY
+
+# ignore dups in history
+setopt HIST_IGNORE_ALL_DUPS
+ 
+# ighore additional space in history
+setopt HIST_IGNORE_SPACE
+  
+# reduce blanks in history
+setopt HIST_REDUCE_BLANKS
+   
+# =cmd without autocomplit
+unsetopt EQUALS
+
+# disable beeps
 unsetopt beep
 
-# Автозагрузка калькулятора
+# autoload calc
 autoload zcalc
 
-# Формат приглашения (PROMPT) и часов (RPROMPT)
+# PROMPT && RPROMPT
 if [[ $EUID == 0 ]] 
 then
- PROMPT=$'%{\e[1;37m%}[%{\e[1;31m%}%n%{\e[1;37m%}@%{\e[1;31m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]#%{\e[0m%} '   # [root@host dir]#
+# [root@host dir]#
+ PROMPT=$'%{\e[1;37m%}[%{\e[1;31m%}%n%{\e[1;37m%}@%{\e[1;31m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]#%{\e[0m%} '
 else
- PROMPT=$'%{\e[1;37m%}[%{\e[1;32m%}%n%{\e[1;37m%}@%{\e[1;32m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]$%{\e[0m%} '   # [user@host dir]$
+# [user@host dir]$
+ PROMPT=$'%{\e[1;37m%}[%{\e[1;32m%}%n%{\e[1;37m%}@%{\e[1;32m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]$%{\e[0m%} '
 fi
-RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'                                                                      # right prompt with time
+# right prompt with time
+RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'    
 
 
-## Alias'ы
+## alias
 alias grep='grep --colour=auto'
 alias synctime='{ ntpd -qg; hwclock -w; date; }'
 alias top='htop'
-alias chromtor='chromium --proxy-server="socks://localhost:9050"'
-alias chromi2p='chromium --proxy-server="https=127.0.0.1:4445;http=127.0.0.1:4444"'
+alias chrommsu='chromium --proxy-server=cache.msu:3128'
+alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
+alias chromi2p='chromium --proxy-server="http=http://127.0.0.1:4444;https=https://127.0.0.1:4445" --incognito'
 alias df='df -h'   
 alias du='du -c -h'
 alias kdm='kdm && exit'
@@ -64,15 +84,16 @@ alias lz='ll -rS'
 alias lt='ll -rt'
 alias lm='la | more'
 
-# Alias -s
+# alias -s
 alias -s {avi,mpeg,mpg,mov,m2v}=mplayer
 alias -s {mp3,flac}=amarok
 alias -s {odt,doc,xls,ppt,docx,xlsx,pptx,csv}=libreoffice
 autoload -U pick-web-browser
 alias -s {html,htm}=opera
 
-# EXAMPLE: extract file
-ext () {
+# function for extract archives
+# EXAMPLE: unpack file
+unpack () {
  if [ -f $1 ] ; then
  case $1 in
    *.tar.bz2)   tar xjf $1        ;;
@@ -94,8 +115,9 @@ ext () {
  fi
  }
 
-# EXAMPLE: pk tar file
-pk () {
+# function for create archives
+# EXAMPLE: pack tar file
+pack () {
  if [ $1 ] ; then
  case $1 in
    tbz)       tar cjvf $2.tar.bz2 $2      ;;
@@ -116,16 +138,35 @@ pk () {
 if [[ $EUID == 0 ]]
 then
   alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,quiet,umask=000'
+  # MTS 3G modem
+  alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g & disown'
 else
   alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,quiet,umask=000'
   alias umount='sudo umount'
   alias mount='sudo mount'
   alias pacman='sudo pacman'
   alias netcfg='sudo netcfg'
+  # MTS 3G modem
+  alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g & disown'
+  alias desktop='sudo netcfg-menu && sudo kdm && exit'
 fi
+
+# global alias
+alias -g g="| grep"
+alias -g l="| less"
 
 # pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # editor
 export EDITOR="vim"
+
+# hash
+hash -d global=/mnt/global
+hash -d windows=/mnt/windows
+hash -d iso=/mnt/iso
+hash -d u1=/mnt/usbdev1
+hash -d u2=/mnt/usbdev2
+
+# umask
+umask 027
