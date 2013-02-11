@@ -32,6 +32,8 @@ set showmatch
 
 " Показывать номер строки
 set number
+" Красная полоска на 80 символе
+set colorcolumn=80
 
 " Включить табы в начале строки
 set list

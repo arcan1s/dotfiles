@@ -38,6 +38,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
+--beautiful.init("/home/arcanis/.config/awesome/theme.lua")
 beautiful.init("/home/arcanis/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
@@ -54,6 +55,7 @@ torrent = "transmission-qt"
 musplay = "amarok"
 messager = "qutim"
 prtscreen = "/home/arcanis/bin/screenshots"
+screensaver = "xscreensaver-command -activate"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -105,7 +107,14 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
+exitmenu = {
+   { "suspend", "systemctl suspend" },
+   { "reboot", "systemctl reboot" },
+   { "shutdown", "systemctl poweroff" }
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "exit" , exitmenu },
                                     { "open terminal", terminal }
                                   }
                         })
@@ -122,31 +131,35 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mytextclock = awful.widget.textclock()
 
 vicious = require("vicious")
-battext = wibox.widget.textbox("battext")
 
+battext = wibox.widget.textbox("battext")
 function battery_status_text(widget, args)
     local perc = args[2]
 
     if perc < 15 then
-        return '<span color="red">' .. 'BAT: ' .. perc .. '%</span> '
+        return '| BAT: ' .. '<span color="red">' .. perc .. '%</span>'
     elseif perc < 50 then
-        return '<span color="yellow">' .. 'BAT: ' .. perc .. '%</span> '
+        return '| BAT: ' .. '<span color="yellow">' .. perc .. '%</span>'
     end
-    return '<span color="#8EAE6E">' .. 'BAT: ' .. perc .. '%</span> '
+    return '| BAT: ' .. '<span color="#8EAE6E">' .. perc .. '%</span>'
 end
-
 vicious.register(battext, vicious.widgets.bat, battery_status_text, 120, "BAT0")
 
-
-cputext_format = "CPU: $1% "
+cputext_format = 'CPU: ' .. '<span color="lightgreen">$1%</span>' .. ' | '
 cputext = wibox.widget.textbox("cputext")
 vicious.register(cputext, vicious.widgets.cpu, cputext_format, 3)
 
-
-memtext_format = "MEM: $1%"
+memtext_format = 'MEM: ' .. '<span color="lightblue">$1%</span>' .. ' | '
 memtext = wibox.widget.textbox("memtext")
-vicious.register(memtext, vicious.widgets.mem, memtext_format, 13)
+vicious.register(memtext, vicious.widgets.mem, memtext_format, 15)
 
+swaptext_format = 'SWAP: ' .. '<span color="lightblue">$5%</span>' .. ' |'
+swaptext = wibox.widget.textbox("swaptext")
+vicious.register(swaptext, vicious.widgets.mem, swaptext_format, 15)
+
+datetext_format = nil
+datetext = wibox.widget.textbox("datetext")
+vicious.register(datetext, vicious.widgets.date, datetext_format, 1)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -227,7 +240,8 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(cputext)
     right_layout:add(memtext)
-    right_layout:add(mytextclock)
+    right_layout:add(swaptext)
+    right_layout:add(datetext)
     right_layout:add(battext)
     right_layout:add(mylayoutbox[s])
 
@@ -298,14 +312,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- My key
-    awful.key({                   }, "XF86Calculator", function () awful.util.spawn(terminal) end),
-    awful.key({                   }, "XF86MyComputer", function () awful.util.spawn(fileman)  end),
-    awful.key({ modkey,           }, "F1",             function () awful.util.spawn(net)      end),
-    awful.key({ modkey,           }, "F2",             function () awful.util.spawn(messager) end),
-    awful.key({ modkey,           }, "F3",             function () awful.util.spawn(mailcli)  end),
-    awful.key({ modkey,           }, "F4",             function () awful.util.spawn(torrent)  end),
-    awful.key({ modkey,           }, "F5",             function () awful.util.spawn(musplay)  end),
-    awful.key({ modkey,           }, "F6",             function () awful.util.spawn(libre)    end),
+    awful.key({                   }, "XF86Calculator", function () awful.util.spawn(terminal)        end),
+    awful.key({                   }, "XF86MyComputer", function () awful.util.spawn(fileman)         end),
+    awful.key({ modkey,           }, "l",              function () awful.util.spawn(screensaver)     end),
+    awful.key({ modkey,           }, "F1",             function () awful.util.spawn(net)             end),
+    awful.key({ modkey,           }, "F2",             function () awful.util.spawn(messager)        end),
+    awful.key({ modkey,           }, "F3",             function () awful.util.spawn(mailcli)         end),
+    awful.key({ modkey,           }, "F4",             function () awful.util.spawn(torrent)         end),
+    awful.key({ modkey,           }, "F5",             function () awful.util.spawn(musplay)         end),
+    awful.key({ modkey,           }, "F6",             function () awful.util.spawn(libre)           end),
     awful.key({                   }, "Print",          function () awful.util.spawn(prtscreen,false) end),
 
     -- Prompt
@@ -404,6 +419,8 @@ awful.rules.rules = {
     { rule = { class = "Chromium" },
       properties = { tag = tags[1][3] } },
     { rule = { class = "Qutim" },
+      properties = { tag = tags[1][6] } },
+    { rule = { class = "psi" },
       properties = { tag = tags[1][6] } },
     { rule = { class = "Amarok" },
       properties = { tag = tags[1][5] } },

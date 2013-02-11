@@ -54,13 +54,32 @@ autoload zcalc
 if [[ $EUID == 0 ]] 
 then
 # [root@host dir]#
- PROMPT=$'%{\e[1;37m%}[%{\e[1;31m%}%n%{\e[1;37m%}@%{\e[1;31m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]#%{\e[0m%} '
+  PROMPT=$'%{\e[1;37m%}[%{\e[1;31m%}%n%{\e[1;37m%}@%{\e[0;31m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]#%{\e[0m%} '
 else
 # [user@host dir]$
- PROMPT=$'%{\e[1;37m%}[%{\e[1;32m%}%n%{\e[1;37m%}@%{\e[1;32m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]$%{\e[0m%} '
+  PROMPT=$'%{\e[1;37m%}[%{\e[1;32m%}%n%{\e[1;37m%}@%{\e[0;32m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]$%{\e[0m%} '
 fi
+precmd () {
+  # Battery charge
+  function batcharge {
+    bat_perc=`acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//"`
+
+    if [[ $bat_perc < 15 ]]
+    then
+      col='%{\e[1;31m%}'
+    elif [[ $bat_perc < 50 ]]
+    then
+      col='%{\e[1;33m%}'
+    else
+      col='%{\e[1;32m%}'
+    fi
+
+    echo '%{\e[1;37m%}['$col$bat_perc'%{\e[1;37m%}%%]%{\e[0m%}'
+  }
+  RPROMPT=$'%{\e[1;37m%}[%T]%{\e[0m%} '$(batcharge)
+}
 # right prompt with time
-RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'    
+#RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'    
 
 
 ## alias
@@ -72,7 +91,6 @@ alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
 alias chromi2p='chromium --proxy-server="http=http://127.0.0.1:4444;https=https://127.0.0.1:4445" --incognito'
 alias df='df -h'   
 alias du='du -c -h'
-alias kdm='kdm && exit'
 alias su='su -'
 
 alias ls='ls --color=auto'
@@ -140,6 +158,8 @@ then
   alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,quiet,umask=000'
   # MTS 3G modem
   alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g & disown'
+  alias mp3mount='mtpfs -o allow_other'
+  alias kdm='kdm && exit'
 else
   alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,quiet,umask=000'
   alias umount='sudo umount'
@@ -148,7 +168,9 @@ else
   alias netcfg='sudo netcfg'
   # MTS 3G modem
   alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g & disown'
-  alias desktop='sudo netcfg-menu && sudo kdm && exit'
+  alias desktop='sudo netcfg-menu && sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo kdm && exit'
+  alias mp3mount='sudo mtpfs -o allow_other'
+  alias kdm='sudo kdm && exit'
 fi
 
 # global alias
