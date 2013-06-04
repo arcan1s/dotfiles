@@ -84,7 +84,6 @@ precmd () {
 
 ## alias
 alias grep='grep --colour=auto'
-alias synctime='{ ntpd -qg; hwclock -w; date; }'
 alias top='htop'
 alias chrommsu='chromium --proxy-server=cache.msu:3128'
 alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
@@ -103,29 +102,30 @@ alias lt='ll -rt'
 alias lm='la | more'
 
 # alias -s
-alias -s {avi,mpeg,mpg,mov,m2v}=mplayer
-alias -s {mp3,flac}=amarok
+alias -s {avi,mpeg,mpg,mov,m2v,mkv}=mplayer
+alias -s {mp3,flac}=qmmp
 alias -s {odt,doc,xls,ppt,docx,xlsx,pptx,csv}=libreoffice
+alias -s {pdf}=okular
 autoload -U pick-web-browser
 alias -s {html,htm}=opera
 
-# function for extract archives
+# function to extract archives
 # EXAMPLE: unpack file
 unpack () {
  if [ -f $1 ] ; then
  case $1 in
-   *.tar.bz2)   tar xjf $1        ;;
+   *.tar.bz2)   tar xjf $1     ;;
    *.tar.gz)    tar xzf $1     ;;
-   *.bz2)       bunzip2 $1       ;;
+   *.bz2)       bunzip2 $1     ;;
    *.rar)       unrar x $1     ;;
-   *.gz)        gunzip $1     ;;
-   *.tar)       tar xf $1        ;;
-   *.tbz2)      tar xjf $1      ;;
-   *.tbz)       tar -xjvf $1    ;;
-   *.tgz)       tar xzf $1       ;;
-   *.zip)       unzip $1     ;;
+   *.gz)        gunzip $1      ;;
+   *.tar)       tar xf $1      ;;
+   *.tbz2)      tar xjf $1     ;;
+   *.tbz)       tar xjvf $1    ;;
+   *.tgz)       tar xzf $1     ;;
+   *.zip)       unzip $1       ;;
    *.Z)         uncompress $1  ;;
-   *.7z)        7z x $1    ;;
+   *.7z)        7z x $1        ;;
    *)           echo "I don't know how to extract '$1'..." ;;
  esac
  else
@@ -133,49 +133,77 @@ unpack () {
  fi
  }
 
-# function for create archives
+# function to create archives
 # EXAMPLE: pack tar file
 pack () {
  if [ $1 ] ; then
  case $1 in
-   tbz)       tar cjvf $2.tar.bz2 $2      ;;
-   tgz)       tar czvf $2.tar.gz  $2       ;;
-   tar)      tar cpvf $2.tar  $2       ;;
-   bz2)    bzip $2 ;;
+   tbz)       tar cjvf $2.tar.bz2 $2   ;;
+   tgz)       tar czvf $2.tar.gz  $2   ;;
+   tar)       tar cpvf $2.tar  $2      ;;
+   bz2)       bzip $2                  ;;
    gz)        gzip -c -9 -n $2 > $2.gz ;;
-   zip)       zip -r $2.zip $2   ;;
-   7z)        7z a $2.7z $2    ;;
+   zip)       zip -r $2.zip $2         ;;
+   7z)        7z a $2.7z $2            ;;
    *)         echo "'$1' cannot be packed via pk()" ;;
  esac
  else
    echo "'$1' is not a valid file"
  fi
-}  
+} 
+
+# function to contorl xrandr
+# EXAMPLE: projctrl 1024x768
+projctrl () {
+  if [ $1 ] ; then
+    if [ $1 = "-h" ]; then
+      echo "Usage:   projctrl [ off/resolution ]"
+    fi
+
+    if [ $1 = "off" ] ; then
+      echo "Disable VGA1"
+      xrandr --output VGA1 --off --output LVDS1 --mode 1366x768
+    else
+      echo "Using resolution: $1"
+      xrandr --output VGA1 --mode $1 --output LVDS1 --mode $1
+    fi
+  else
+    echo "Using default resolution"
+    xrandr --output VGA1 --mode 1366x768 --output LVDS1 --mode 1366x768
+  fi
+}
  
 # sudo alias
 if [[ $EUID == 0 ]]
 then
-  alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,quiet,umask=000'
+  alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   # MTS 3G modem
   alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g & disown'
-  alias mp3mount='mtpfs -o allow_other'
   alias kdm='kdm && exit'
+  alias synctime='{ ntpd -qg; hwclock -w; date; }'
 else
-  alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,quiet,umask=000'
+  alias pacman='sudo pacman'
+  alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   alias umount='sudo umount'
   alias mount='sudo mount'
-  alias pacman='sudo pacman'
-  alias netcfg='sudo netcfg'
+  alias netctl='sudo netctl'
   # MTS 3G modem
   alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g & disown'
-  alias desktop='sudo netcfg-menu && sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo kdm && exit'
-  alias mp3mount='sudo mtpfs -o allow_other'
+  alias desktop='sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo systemctl start sshd && sudo kdm && exit'
   alias kdm='sudo kdm && exit'
+  alias synctime='{ sudo ntpd -qg; sudo hwclock -w; date; }'
+  alias wifi-menu='sudo wifi-menu'
+  alias dhcpcd='sudo dhcpcd'
+  alias journalctl='sudo journalctl'
+  alias systemctl='sudo systemctl'
 fi
 
 # global alias
 alias -g g="| grep"
 alias -g l="| less"
+alias -g t="| tail"
+alias -g h="| head"
+alias -g dn=">& /dev/null &"
 
 # pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
@@ -191,7 +219,7 @@ hash -d u1=/mnt/usbdev1
 hash -d u2=/mnt/usbdev2
 
 # umask
-umask 027
+umask 022
 
 # path
-export PATH="$PATH:$HOME/bin/"
+export PATH="$PATH:$HOME/bin/:/opt/gromacs_old/bin/"
