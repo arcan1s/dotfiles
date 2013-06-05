@@ -158,6 +158,7 @@ projctrl () {
   if [ $1 ] ; then
     if [ $1 = "-h" ]; then
       echo "Usage:   projctrl [ off/resolution ]"
+      return
     fi
 
     if [ $1 = "off" ] ; then
