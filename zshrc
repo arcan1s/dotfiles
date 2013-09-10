@@ -4,10 +4,8 @@ HISTSIZE=500000
 SAVEHIST=500000
 
 # bindkeys
-bindkey '^[[A' up-line-or-search                # up arrow for back-history-search
-bindkey '^[[B' down-line-or-search              # down arrow for fwd-history-search
-bindkey ';5D' backward-word                     # ctrl+left 
-bindkey ';5C' forward-word                      # ctrl+right
+bindkey '^[[A'  up-line-or-search               # up arrow for back-history-search
+bindkey '^[[B'  down-line-or-search             # down arrow for fwd-history-search
 bindkey '\e[1~' beginning-of-line               # home
 bindkey '\e[2~' overwrite-mode                  # insert
 bindkey '\e[3~' delete-char                     # del
@@ -76,7 +74,13 @@ precmd () {
 
     echo '%{\e[1;37m%}['$col$bat_perc'%{\e[1;37m%}%%]%{\e[0m%}'
   }
-  RPROMPT=$'%{\e[1;37m%}[%T]%{\e[0m%} '$(batcharge)
+ RPROMPT=$'%{\e[1;37m%}[%T]%{\e[0m%} '$(batcharge)
+#   if [[ $EUID == 0 ]] 
+#   then
+#     PROMPT=$'%{\e[1;37m%}# %{\e[1;31m%}%n %{\e[1;37m%}at %{\e[0;31m%}%m %{\e[1;37m%}in %{\e[1;33m%}%~ %{\e[1;37m%}[%D] [%*] '$(batcharge)$'%{\e[1;37m%} [%?]\n%{\e[1;31m%}# %{\e[0m%}'
+#   else
+#     PROMPT=$'%{\e[1;37m%}# %{\e[1;32m%}%n %{\e[1;37m%}at %{\e[0;32m%}%m %{\e[1;37m%}in %{\e[1;33m%}%~ %{\e[1;37m%}[%D] [%*] '$(batcharge)$'%{\e[1;37m%} [%?]\n%{\e[1;32m%}$ %{\e[0m%}'
+#   fi
 }
 # right prompt with time
 #RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'    
@@ -87,7 +91,7 @@ alias grep='grep --colour=auto'
 alias top='htop'
 alias chrommsu='chromium --proxy-server=cache.msu:3128'
 alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
-alias chromi2p='chromium --proxy-server="http=http://127.0.0.1:4444;https=https://127.0.0.1:4445" --incognito'
+alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
 alias df='df -h'   
 alias du='du -c -h'
 alias su='su -'
@@ -197,6 +201,8 @@ else
   alias dhcpcd='sudo dhcpcd'
   alias journalctl='sudo journalctl'
   alias systemctl='sudo systemctl'
+  alias modprobe='sudo modprobe'
+  alias rmmod='sudo rmmod'
 fi
 
 # global alias
@@ -223,4 +229,4 @@ hash -d u2=/mnt/usbdev2
 umask 022
 
 # path
-export PATH="$PATH:$HOME/bin/:/opt/gromacs_old/bin/"
+export PATH="$PATH:$HOME/bin/:/opt/gromacs_old/bin/:$HOME/bin/namd"
