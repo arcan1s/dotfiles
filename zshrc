@@ -94,7 +94,20 @@ alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
 alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
 alias df='df -h'   
 alias du='du -c -h'
-alias su='echo "Use \"su -\", Luke"; su -'
+su () {
+  checksu=0
+  for flags in $*; do
+    if [[ $flags == "-" ]]; then
+      checksu=1
+    fi
+  done
+  if [[ $checksu == 0 ]]; then
+    echo "Use 'su -', Luke"
+    /usr/bin/su - $*
+  else
+    /usr/bin/su $*
+  fi
+}
 
 alias ls='ls --color=auto'
 alias ll='ls --group-directories-first -l'
