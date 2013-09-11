@@ -94,7 +94,7 @@ alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
 alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
 alias df='df -h'   
 alias du='du -c -h'
-alias su='su -'
+alias su='echo "Use \"su -\", Luke"; su -'
 
 alias ls='ls --color=auto'
 alias ll='ls --group-directories-first -l'
