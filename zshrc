@@ -111,7 +111,7 @@ su () {
 }
 
 alias ls='ls --color=auto'
-alias ll='ls --group-directories-first -l'
+alias ll='ls --group-directories-first -lh'
 alias lr='ls -R'
 alias la='ll -A'
 alias lx='ll -BX'
