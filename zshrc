@@ -92,8 +92,9 @@ alias top='htop'
 alias chrommsu='chromium --proxy-server=cache.msu:3128'
 alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
 alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
-alias df='df -h'   
-alias du='du -c -h'
+alias df='df -kTh'   
+alias du='du -ckh'
+alias rm='rm -I'
 su () {
   checksu=0
   for flags in $*; do
