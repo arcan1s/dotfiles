@@ -49,8 +49,7 @@ unsetopt beep
 autoload zcalc
 
 # PROMPT && RPROMPT
-if [[ $EUID == 0 ]] 
-then
+if [[ $EUID == 0 ]]; then
 # [root@host dir]#
   PROMPT=$'%{\e[1;37m%}[%{\e[1;31m%}%n%{\e[1;37m%}@%{\e[0;31m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]#%{\e[0m%} '
 else
@@ -62,11 +61,9 @@ precmd () {
   function batcharge {
     bat_perc=`acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//"`
 
-    if [[ $bat_perc < 15 ]]
-    then
+    if [[ $bat_perc < 15 ]]; then
       col='%{\e[1;31m%}'
-    elif [[ $bat_perc < 50 ]]
-    then
+    elif [[ $bat_perc < 50 ]]; then
       col='%{\e[1;33m%}'
     else
       col='%{\e[1;32m%}'
@@ -74,7 +71,7 @@ precmd () {
 
     echo '%{\e[1;37m%}['$col$bat_perc'%{\e[1;37m%}%%]%{\e[0m%}'
   }
- RPROMPT=$'%{\e[1;37m%}[%T]%{\e[0m%} '$(batcharge)
+ RPROMPT=$'%{\e[1;37m%}[%{\e[1;36m%}%T%{\e[1;37m%}]%{\e[0m%} '$(batcharge)
 #   if [[ $EUID == 0 ]] 
 #   then
 #     PROMPT=$'%{\e[1;37m%}# %{\e[1;31m%}%n %{\e[1;37m%}at %{\e[0;31m%}%m %{\e[1;37m%}in %{\e[1;33m%}%~ %{\e[1;37m%}[%D] [%*] '$(batcharge)$'%{\e[1;37m%} [%?]\n%{\e[1;31m%}# %{\e[0m%}'
@@ -95,6 +92,7 @@ alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:444
 alias df='df -kTh'   
 alias du='du -ckh'
 alias rm='rm -I'
+alias yatest='yaourt --config /etc/pactest.conf'
 su () {
   checksu=0
   for flags in $*; do
@@ -130,52 +128,60 @@ alias -s {html,htm}=opera
 # function to extract archives
 # EXAMPLE: unpack file
 unpack () {
- if [ -f $1 ] ; then
- case $1 in
-   *.tar.bz2)   tar xjf $1     ;;
-   *.tar.gz)    tar xzf $1     ;;
-   *.bz2)       bunzip2 $1     ;;
-   *.rar)       unrar x $1     ;;
-   *.gz)        gunzip $1      ;;
-   *.tar)       tar xf $1      ;;
-   *.tbz2)      tar xjf $1     ;;
-   *.tbz)       tar xjvf $1    ;;
-   *.tgz)       tar xzf $1     ;;
-   *.zip)       unzip $1       ;;
-   *.Z)         uncompress $1  ;;
-   *.7z)        7z x $1        ;;
-   *)           echo "I don't know how to extract '$1'..." ;;
- esac
- else
-   echo "'$1' is not a valid file"
- fi
- }
+  if [[ -f $1 ]]; then
+    case $1 in
+      *.tar.bz2)   tar xjfv $1                             ;;
+      *.tar.gz)    tar xzfv $1                             ;;
+      *.tar.xz)    tar xvJf $1                             ;;
+      *.bz2)       bunzip2 $1                              ;;
+      *.gz)        gunzip $1                               ;;
+      *.rar)       unrar x $1                              ;;
+      *.tar)       tar xf $1                               ;;
+      *.tbz)       tar xjvf $1                             ;;
+      *.tbz2)      tar xjf $1                              ;;
+      *.tgz)       tar xzf $1                              ;;
+      *.zip)       unzip $1                                ;;
+      *.Z)         uncompress $1                           ;;
+      *.7z)        7z x $1                                 ;;
+      *)           echo "I don't know how to extract '$1'" ;;
+    esac
+  else
+    case $1 in
+      *help)       echo "Usage: unpack ARCHIVE_NAME"       ;; 
+      *)           echo "'$1' is not a valid file"         ;;
+    esac
+  fi
+}
 
 # function to create archives
 # EXAMPLE: pack tar file
 pack () {
- if [ $1 ] ; then
- case $1 in
-   tbz)       tar cjvf $2.tar.bz2 $2   ;;
-   tgz)       tar czvf $2.tar.gz  $2   ;;
-   tar)       tar cpvf $2.tar  $2      ;;
-   bz2)       bzip $2                  ;;
-   gz)        gzip -c -9 -n $2 > $2.gz ;;
-   zip)       zip -r $2.zip $2         ;;
-   7z)        7z a $2.7z $2            ;;
-   *)         echo "'$1' cannot be packed via pk()" ;;
- esac
- else
-   echo "'$1' is not a valid file"
- fi
+  if [ $1 ]; then
+    case $1 in
+      tar.bz2)     tar -cjvf $2.tar.bz2 $2                 ;; 
+      tar.gz)      tar -czvf $2.tar.bz2 $2                 ;; 
+      tar.xz)      tar -cf - $2 | xz -9 -c - > $2.tar.xz   ;;
+      bz2)         bzip $2                                 ;;
+      gz)          gzip -c -9 -n $2 > $2.gz                ;;
+      tar)         tar cpvf $2.tar  $2                     ;;
+      tbz)         tar cjvf $2.tar.bz2 $2                  ;;
+      tgz)         tar czvf $2.tar.gz  $2                  ;;
+      zip)         zip -r $2.zip $2                        ;;
+      7z)          7z a $2.7z $2                           ;;
+      *help)       echo "Usage: pack TYPE FILES"           ;;
+      *)           echo "'$1' cannot be packed via pack()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
 } 
 
 # function to contorl xrandr
-# EXAMPLE: projctrl 1024x768
-projctrl () {
+# EXAMPLE: projctl 1024x768
+projctl () {
   if [ $1 ] ; then
     if [ $1 = "-h" ]; then
-      echo "Usage:   projctrl [ off/resolution ]"
+      echo "Usage:   projctl [ off/resolution ]"
       return
     fi
 
@@ -193,8 +199,7 @@ projctrl () {
 }
  
 # sudo alias
-if [[ $EUID == 0 ]]
-then
+if [[ $EUID == 0 ]]; then
   alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   # MTS 3G modem
   alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g & disown'
@@ -224,7 +229,7 @@ alias -g g="| grep"
 alias -g l="| less"
 alias -g t="| tail"
 alias -g h="| head"
-alias -g dn=">& /dev/null &"
+alias -g dn="&> /dev/null &"
 
 # pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
@@ -243,4 +248,4 @@ hash -d u2=/mnt/usbdev2
 umask 022
 
 # path
-export PATH="$PATH:$HOME/bin/:/opt/gromacs_old/bin/:$HOME/bin/namd"
+export PATH="$PATH:$HOME/bin/:/opt/gromacs_old/bin/:$HOME/bin/namd:$HOME/bin/namd_gpu"
