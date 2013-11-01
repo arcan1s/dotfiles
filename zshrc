@@ -3,6 +3,25 @@ HISTFILE=~/.histfile
 HISTSIZE=500000
 SAVEHIST=500000
 
+# highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+# brackets
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
+# cursor
+#ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+# main
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[globbing]='none'
+# pattern
+#ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
+# root
+#ZSH_HIGHLIGHT_STYLES[root]='bg=red'
+
 # bindkeys
 bindkey '^[[A'  up-line-or-search               # up arrow for back-history-search
 bindkey '^[[B'  down-line-or-search             # down arrow for fwd-history-search
@@ -91,6 +110,8 @@ alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
 alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
 alias df='df -kTh'   
 alias du='du -ckh'
+alias less='vimpager'
+alias zless='vimpager'
 alias rm='rm -I'
 alias yatest='yaourt --config /etc/pactest.conf'
 su () {
@@ -118,7 +139,7 @@ alias lt='ll -rt'
 alias lm='la | more'
 
 # alias -s
-alias -s {avi,mpeg,mpg,mov,m2v,mkv}=mplayer
+alias -s {avi,mpeg,mpg,mov,m2v,mkv}=mpv
 alias -s {mp3,flac}=qmmp
 alias -s {odt,doc,xls,ppt,docx,xlsx,pptx,csv}=libreoffice
 alias -s {pdf}=okular
@@ -185,7 +206,7 @@ projctl () {
       return
     fi
 
-    if [ $1 = "off" ] ; then
+    if [ $1 = "off" ]; then
       echo "Disable VGA1"
       xrandr --output VGA1 --off --output LVDS1 --mode 1366x768
     else
@@ -203,7 +224,7 @@ if [[ $EUID == 0 ]]; then
   alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   # MTS 3G modem
   alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g & disown'
-  alias kdm='kdm && exit'
+  alias kdm='systemctl start kdm && exit'
   alias synctime='{ ntpd -qg; hwclock -w; date; }'
 else
   alias pacman='sudo pacman'
@@ -213,8 +234,8 @@ else
   alias netctl='sudo netctl'
   # MTS 3G modem
   alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g & disown'
-  alias desktop='sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo systemctl start sshd && sudo kdm && exit'
-  alias kdm='sudo kdm && exit'
+  alias desktop='sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo systemctl start sshd && sudo systemctl start kdm && exit'
+  alias kdm='sudo systemctl start kdm && exit'
   alias synctime='{ sudo ntpd -qg; sudo hwclock -w; date; }'
   alias wifi-menu='sudo wifi-menu'
   alias dhcpcd='sudo dhcpcd'
@@ -226,7 +247,7 @@ fi
 
 # global alias
 alias -g g="| grep"
-alias -g l="| less"
+alias -g l="| vimpager"
 alias -g t="| tail"
 alias -g h="| head"
 alias -g dn="&> /dev/null &"
@@ -236,6 +257,7 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # editor
 export EDITOR="vim"
+export PAGER="vimpager"
 
 # hash
 hash -d global=/mnt/global
