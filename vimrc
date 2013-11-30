@@ -1,7 +1,6 @@
 "" .vimrc by arcanis
 "" 2012-12-15
 
-
 "" Внешний вид
 " Цветовая схема
 colorscheme koehler
@@ -69,7 +68,7 @@ set ignorecase
 
 "" Навигация
 " При вставке фрагмента сохраняет отступ
-set pastetoggle=<F2>
+set pastetoggle=<P>
 
 " Перемещать курсор на следующую строку при нажатии на клавиши
 set whichwrap=b,<,>,[,],l,h
