@@ -36,9 +36,9 @@ set number
 set colorcolumn=80
 
 " Включить табы в начале строки
-set list
+"set list
 " Обозначение табов в начале строки
-set listchars=tab:··
+"set listchars=tab:
 
 " Динамический перенос длинных строк
 set wrap
@@ -82,4 +82,4 @@ set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 
 "" Клавиатура
 " Автоопределение русских символов
-set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+"set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>

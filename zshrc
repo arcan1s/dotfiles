@@ -37,7 +37,7 @@ autoload -U compinit promptinit
 compinit
 promptinit
 zstyle ':completion:*' insert-tab false         # Автокомплит для первого символа
-zstyle ':completion:*' max-errors 2  
+zstyle ':completion:*' max-errors 2
 
 # autocd
 setopt autocd
@@ -51,13 +51,13 @@ setopt APPEND_HISTORY
 
 # ignore dups in history
 setopt HIST_IGNORE_ALL_DUPS
- 
+
 # ighore additional space in history
 setopt HIST_IGNORE_SPACE
-  
+
 # reduce blanks in history
 setopt HIST_REDUCE_BLANKS
-   
+
 # =cmd without autocomplit
 unsetopt EQUALS
 
@@ -99,21 +99,24 @@ precmd () {
 #   fi
 }
 # right prompt with time
-#RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'    
+#RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'
 
-
+show_which() {
+  OUTPUT=$(which $1 | cut -d " " -f7-)
+  printf "Running '$OUTPUT'\n"
+}
 ## alias
-alias grep='grep --colour=auto'
-alias top='htop'
-alias chrommsu='chromium --proxy-server=cache.msu:3128'
-alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
-alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
-alias df='df -kTh'   
-alias du='du -ckh'
-alias less='vimpager'
-alias zless='vimpager'
-alias rm='rm -I'
-alias yatest='yaourt --config /etc/pactest.conf'
+alias grep='show_which grep && grep --colour=auto'
+alias top='show_which top && htop'
+alias chrommsu='show_which chrommsu && chromium --proxy-server=cache.msu:3128'
+alias chromtor='show_which chromtor && chromium --proxy-server="socks://localhost:9050" --incognito'
+alias chromi2p='show_which chromi2p && chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
+alias df='show_which df && df -k --print-type --human-readable'
+alias du='show_which du && du -k --total --human-readable'
+alias less='show_which less && vimpager'
+alias zless='show_which zless && vimpager'
+alias rm='show_which rm && rm -I'
+alias yatest='show_which yatest && yaourt --config /etc/pactest.conf'
 su () {
   checksu=0
   for flags in $*; do
@@ -129,14 +132,14 @@ su () {
   fi
 }
 
-alias ls='ls --color=auto'
-alias ll='ls --group-directories-first -lh'
-alias lr='ls -R'
-alias la='ll -A'
-alias lx='ll -BX'
-alias lz='ll -rS'
-alias lt='ll -rt'
-alias lm='la | more'
+alias ls='show_which ls && ls --color=auto'
+alias ll='show_which ll && ls --group-directories-first -l --human-readable'
+alias lr='show_which lr && ls --recursive'
+alias la='show_which la && ll --almost-all'
+alias lx='show_which lx && ll -X --ignore-backups'
+alias lz='show_which lz && ll -S --reverse'
+alias lt='show_which lt && ll -t --reverse'
+alias lm='show_which lm && la | more'
 
 # alias -s
 alias -s {avi,mpeg,mpg,mov,m2v,mkv}=mpv
@@ -168,7 +171,7 @@ unpack () {
     esac
   else
     case $1 in
-      *help)       echo "Usage: unpack ARCHIVE_NAME"       ;; 
+      *help)       echo "Usage: unpack ARCHIVE_NAME"       ;;
       *)           echo "'$1' is not a valid file"         ;;
     esac
   fi
@@ -218,31 +221,31 @@ projctl () {
     xrandr --output VGA1 --mode 1366x768 --output LVDS1 --mode 1366x768
   fi
 }
- 
+
 # sudo alias
 if [[ $EUID == 0 ]]; then
-  alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
+  alias fat32mnt='show_which fat32mnt && mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   # MTS 3G modem
-  alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g & disown'
-  alias kdm='systemctl start kdm && exit'
-  alias synctime='{ ntpd -qg; hwclock -w; date; }'
+  alias mts_3g='show_which mts_3g && eject /dev/sr1 && sleep 5 && wvdial mts3g && disown'
+  alias kdm='show_which kdm && systemctl start kdm && exit'
+  alias synctime='show_which synctime && { ntpd -qg; hwclock -w; date; }'
 else
-  alias pacman='sudo pacman'
-  alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
-  alias umount='sudo umount'
-  alias mount='sudo mount'
-  alias netctl='sudo netctl'
+  alias pacman='show_which pacman && sudo pacman'
+  alias fat32mnt='show_which fat32mnt && sudo mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
+  alias umount='show_which umount && sudo umount'
+  alias mount='show_which mount && sudo mount'
+  alias netctl='show_which netctl && sudo netctl'
   # MTS 3G modem
-  alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g & disown'
+  alias mts_3g='show_which mts_3g && sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g && disown'
   alias desktop='sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo systemctl start sshd && sudo systemctl start kdm && exit'
-  alias kdm='sudo systemctl start kdm && exit'
-  alias synctime='{ sudo ntpd -qg; sudo hwclock -w; date; }'
-  alias wifi-menu='sudo wifi-menu'
-  alias dhcpcd='sudo dhcpcd'
-  alias journalctl='sudo journalctl'
-  alias systemctl='sudo systemctl'
-  alias modprobe='sudo modprobe'
-  alias rmmod='sudo rmmod'
+  alias kdm='show_which kdm && sudo systemctl start kdm && exit'
+  alias synctime='show_which synctime && { sudo ntpd -qg; sudo hwclock -w; date; }'
+  alias wifi-menu='show_which wifi-menu && sudo wifi-menu'
+  alias dhcpcd='show_which dhcpcd && sudo dhcpcd'
+  alias journalctl='show_which journalctl && sudo journalctl'
+  alias systemctl='show_which systemctl && sudo systemctl'
+  alias modprobe='show_which modprobe && sudo modprobe'
+  alias rmmod='show_which rmmod && sudo rmmod'
 fi
 
 # global alias
