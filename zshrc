@@ -103,18 +103,18 @@ precmd () {
 
 show_which() {
   OUTPUT=$(which $1 | cut -d " " -f7-)
-  printf "Running '$OUTPUT'\n"
+  echo "Running '$OUTPUT'" 1>&2 
 }
 ## alias
-alias grep='show_which grep && grep --colour=auto'
+alias grep='grep --colour=auto'
 alias top='show_which top && htop'
 alias chrommsu='show_which chrommsu && chromium --proxy-server=cache.msu:3128'
 alias chromtor='show_which chromtor && chromium --proxy-server="socks://localhost:9050" --incognito'
 alias chromi2p='show_which chromi2p && chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
 alias df='show_which df && df -k --print-type --human-readable'
 alias du='show_which du && du -k --total --human-readable'
-alias less='show_which less && vimpager'
-alias zless='show_which zless && vimpager'
+alias less='vimpager'
+alias zless='vimpager'
 alias rm='show_which rm && rm -I'
 alias yatest='show_which yatest && yaourt --config /etc/pactest.conf'
 su () {
@@ -250,7 +250,7 @@ fi
 
 # global alias
 alias -g g="| grep"
-alias -g l="| vimpager"
+alias -g l="| less"
 alias -g t="| tail"
 alias -g h="| head"
 alias -g dn="&> /dev/null &"
