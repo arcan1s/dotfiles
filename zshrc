@@ -116,7 +116,6 @@ alias du='show_which du && du -k --total --human-readable'
 alias less='vimpager'
 alias zless='vimpager'
 alias rm='show_which rm && rm -I'
-alias yatest='show_which yatest && yaourt --config /etc/pactest.conf'
 su () {
   checksu=0
   for flags in $*; do
@@ -130,6 +129,18 @@ su () {
   else
     /usr/bin/su $*
   fi
+}
+pacman () {
+  /usr/bin/sudo /usr/bin/pacman $*
+  echo "$*" | grep -q "S\|R" && rehash
+}
+yaourt () {
+  /usr/bin/yaourt $*
+  echo "$*" | grep -q "S\|R" && rehash
+}
+yatest () {
+  /usr/bin/yaourt --config /etc/pactest.conf $*
+  echo "$*" | grep -q "S\|R" && rehash
 }
 
 alias ls='show_which ls && ls --color=auto'
@@ -230,7 +241,6 @@ if [[ $EUID == 0 ]]; then
   alias kdm='show_which kdm && systemctl start kdm && exit'
   alias synctime='show_which synctime && { ntpd -qg; hwclock -w; date; }'
 else
-  alias pacman='show_which pacman && sudo pacman'
   alias fat32mnt='show_which fat32mnt && sudo mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   alias umount='show_which umount && sudo umount'
   alias mount='show_which mount && sudo mount'
