@@ -131,16 +131,13 @@ su () {
   fi
 }
 pacman () {
-  /usr/bin/sudo /usr/bin/pacman $*
-  echo "$*" | grep -q "S\|R" && rehash
+  /usr/bin/sudo /usr/bin/pacman $* && echo "$*" | grep -q "S\|R" && rehash
 }
 yaourt () {
-  /usr/bin/yaourt $*
-  echo "$*" | grep -q "S\|R" && rehash
+  /usr/bin/yaourt $* && echo "$*" | grep -q "S\|R" && rehash
 }
 yatest () {
-  /usr/bin/yaourt --config /etc/pactest.conf $*
-  echo "$*" | grep -q "S\|R" && rehash
+  /usr/bin/yaourt --config /etc/pactest.conf $* && echo "$*" | grep -q "S\|R" && rehash
 }
 
 alias ls='show_which ls && ls --color=auto'
