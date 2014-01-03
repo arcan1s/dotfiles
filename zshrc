@@ -110,7 +110,7 @@ alias grep='grep --colour=auto'
 alias top='show_which top && htop'
 alias chrommsu='show_which chrommsu && chromium --proxy-server=cache.msu:3128'
 alias chromtor='show_which chromtor && chromium --proxy-server="socks://localhost:9050" --incognito'
-alias chromi2p='show_which chromi2p && chromium --proxy-server="http=127.0.0.1:4444;https=127.0.0.1:4445" --incognito'
+alias chromi2p='show_which chromi2p && chromium --proxy-server="http=127.0.0.1:4444;http=127.0.0.1:4444" --incognito'
 alias df='show_which df && df -k --print-type --human-readable'
 alias du='show_which du && du -k --total --human-readable'
 alias less='vimpager'
@@ -253,6 +253,7 @@ else
   alias systemctl='show_which systemctl && sudo systemctl'
   alias modprobe='show_which modprobe && sudo modprobe'
   alias rmmod='show_which rmmod && sudo rmmod'
+  alias pacdiff='show_which pacdiff && sudo pacdiff'
 fi
 
 # global alias
