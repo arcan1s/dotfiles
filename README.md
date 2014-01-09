@@ -13,3 +13,4 @@ Description
 * `sakura.conf` - settings for [Sakura terminal](https://launchpad.net/sakura). It is stored in `$HOME/.config/sakura/`.
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`.
 * `zshrc` - settings (for root and normal user) for zsh. It is stored as `$HOME/.zshrc`.
+* `arch_install.sh` - simple script for automatic installation
