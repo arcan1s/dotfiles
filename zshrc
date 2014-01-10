@@ -59,11 +59,18 @@ bindkey '\e[5~' up-line-or-history              # page-up
 bindkey '\e[6~' down-line-or-history            # page-down
 
 # autocomplit
-autoload -U compinit promptinit
+autoload -U compinit
 compinit
-promptinit
 zstyle ':completion:*' insert-tab false         # Автокомплит для первого символа
 zstyle ':completion:*' max-errors 2
+
+# prompt
+autoload -U promptinit
+promptinit
+
+# colors
+autoload -U colors
+colors
 
 # autocd
 setopt autocd
@@ -96,10 +103,20 @@ autoload zcalc
 # PROMPT && RPROMPT
 if [[ $EUID == 0 ]]; then
 # [root@host dir]#
-  PROMPT=$'%{\e[1;37m%}[%{\e[1;31m%}%n%{\e[1;37m%}@%{\e[0;31m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]#%{\e[0m%} '
+  PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+%{$fg_bold[red]%}%n%{$reset_color%}\
+%{$fg_bold[white]%}@%{$reset_color%}\
+%{$fg_no_bold[red]%}%m %{$reset_color%}\
+%{$fg_bold[yellow]%}%1/%{$reset_color%}\
+%{$fg_bold[white]%}]# %{$reset_color%}"
 else
 # [user@host dir]$
-  PROMPT=$'%{\e[1;37m%}[%{\e[1;32m%}%n%{\e[1;37m%}@%{\e[0;32m%}%m %{\e[1;33m%}%1/%{\e[1;37m%}]$%{\e[0m%} '
+  PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+%{$fg_bold[green]%}%n%{$reset_color%}\
+%{$fg_bold[white]%}@%{$reset_color%}\
+%{$fg_no_bold[green]%}%m %{$reset_color%}\
+%{$fg_bold[yellow]%}%1/%{$reset_color%}\
+%{$fg_bold[white]%}]$ %{$reset_color%}"
 fi
 precmd () {
   # Battery charge
@@ -107,16 +124,19 @@ precmd () {
     bat_perc=`acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//"`
 
     if [[ $bat_perc < 15 ]]; then
-      col='%{\e[1;31m%}'
+      col="%{$fg_bold[red]%}"
     elif [[ $bat_perc < 50 ]]; then
-      col='%{\e[1;33m%}'
+      col="%{$fg_bold[yellow]%}"
     else
-      col='%{\e[1;32m%}'
+      col="%{$fg_bold[green]%}"
     fi
 
-    echo '%{\e[1;37m%}['$col$bat_perc'%{\e[1;37m%}%%]%{\e[0m%}'
+    echo "%{$fg_bold[white]%}["$col$bat_perc"%{$fg_bold[white]%}%%]%{$reset_color%}"
   }
- RPROMPT=$'%{\e[1;37m%}[%{\e[1;36m%}%T%{\e[1;37m%}]%{\e[0m%} '$(batcharge)
+ RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+%{$fg_bold[cyan]%}%T%{$reset_color%}\
+%{$fg_bold[white]%}] %{$reset_color%}"\
+$(batcharge)
 #   if [[ $EUID == 0 ]] 
 #   then
 #     PROMPT=$'%{\e[1;37m%}# %{\e[1;31m%}%n %{\e[1;37m%}at %{\e[0;31m%}%m %{\e[1;37m%}in %{\e[1;33m%}%~ %{\e[1;37m%}[%D] [%*] '$(batcharge)$'%{\e[1;37m%} [%?]\n%{\e[1;31m%}# %{\e[0m%}'
