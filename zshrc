@@ -1,5 +1,5 @@
 # history
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=500000
 SAVEHIST=500000
 
@@ -119,7 +119,7 @@ else
 %{$fg_bold[white]%}]$ %{$reset_color%}"
 fi
 precmd () {
-  # Battery charge
+  # battery charge
   function batcharge {
     bat_perc=`acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//"`
 
@@ -133,16 +133,15 @@ precmd () {
 
     echo "%{$fg_bold[white]%}["$col$bat_perc"%{$fg_bold[white]%}%%]%{$reset_color%}"
   }
- RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+  # last command
+  returncode="%(?.%{$fg[green]%}.%{$fg[red]%})%?%{$resetcolor%}"
+  RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
 %{$fg_bold[cyan]%}%T%{$reset_color%}\
-%{$fg_bold[white]%}] %{$reset_color%}"\
-$(batcharge)
-#   if [[ $EUID == 0 ]] 
-#   then
-#     PROMPT=$'%{\e[1;37m%}# %{\e[1;31m%}%n %{\e[1;37m%}at %{\e[0;31m%}%m %{\e[1;37m%}in %{\e[1;33m%}%~ %{\e[1;37m%}[%D] [%*] '$(batcharge)$'%{\e[1;37m%} [%?]\n%{\e[1;31m%}# %{\e[0m%}'
-#   else
-#     PROMPT=$'%{\e[1;37m%}# %{\e[1;32m%}%n %{\e[1;37m%}at %{\e[0;32m%}%m %{\e[1;37m%}in %{\e[1;33m%}%~ %{\e[1;37m%}[%D] [%*] '$(batcharge)$'%{\e[1;37m%} [%?]\n%{\e[1;32m%}$ %{\e[0m%}'
-#   fi
+%{$fg_bold[white]%}]%{$reset_color%}"\
+$(batcharge)\
+"%{$fg_bold[white]%}[%{$reset_color%}"\
+$returncode\
+"%{$fg_bold[white]%}]%{$reset_color%}"
 }
 # right prompt with time
 #RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'
@@ -165,9 +164,9 @@ alias rm='show_which rm && rm -I'
 su () {
   checksu=0
   for flags in $*; do
-    if [[ $flags == "-" ]]; then
-      checksu=1
-    fi
+    [[ $flags == "-" ]] && checksu=1
+    [[ $flags == "-l" ]] && checksu=1
+    [[ $flags == "--login" ]] && checksu=1
   done
   if [[ $checksu == 0 ]]; then
     echo "Use 'su -', Luke"
