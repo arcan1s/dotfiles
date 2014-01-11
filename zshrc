@@ -299,6 +299,8 @@ else
   alias modprobe='show_which modprobe && sudo modprobe'
   alias rmmod='show_which rmmod && sudo rmmod'
   alias pacdiff='show_which pacdiff && sudo pacdiff'
+  alias staging-i686-build='show_which staging-i686-build && sudo staging-i686-build'
+  alias staging-x86_64-build='show_which staging-x86_64-build && sudo staging-x86_64-build'   
 fi
 
 # global alias
