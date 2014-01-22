@@ -160,15 +160,46 @@ alias df='show_which df && df -k --print-type --human-readable'
 alias du='show_which du && du -k --total --human-readable'
 alias less='vimpager'
 alias zless='vimpager'
-alias rm='show_which rm && rm -I'
-su () {
-  checksu=0
-  for flags in $*; do
-    [[ $flags == "-" ]] && checksu=1
-    [[ $flags == "-l" ]] && checksu=1
-    [[ $flags == "--login" ]] && checksu=1
+rm () {
+  # error check
+  [ $# -eq 0 ] && { echo "Files are not set!"; return 1 }
+  # set trash path
+  TRASHDIR="$HOME/.local/share/Trash"
+  TRASHFILE="${TRASHDIR}/files"
+  TRASHINFO="${TRASHDIR}/info"
+  for DIRECTORY in "${TRASHDIR}" "${TRASHFILE}" "${TRASHINFO}"; do
+    if [ -e "${DIRECTORY}" ]; then
+      [ -d "${DIRECTORY}" ] || { echo "'${DIRECTORY}' is a file"; return 1 }
+    else
+      mkdir -p -m755 "${DIRECTORY}"
+    fi
   done
-  if [[ $checksu == 0 ]]; then
+  # confirm
+  CONFIRM=""
+  echo -n "You realy want to remove '$@'? [y/n] "; read -k1 CONFIRM; echo
+  [[ ! $CONFIRM =~ [yY] ]] && return 1
+  # move
+  for FILE in "$@"; do
+    DESTFILE="$(basename ${FILE})"
+    SUFFIX='';
+    ITER=0;
+    while [ -e "${TRASHFILE}/${DESTFILE}${SUFFIX}" ]; do
+      SUFFIX="_${ITER}";
+      ITER=$(expr ${ITER} + 1)
+    done
+    echo "Remove '${FILE}'"
+    mv "${FILE}" "${TRASHFILE}/${DESTFILE}${SUFFIX}"
+    echo "[Trash Info]\nPath=$(realpath ${FILE})\nDeletionDate=$(date +%Y-%m-%dT%H:%M:%S)" > "${TRASHINFO}/${DESTFILE}${SUFFIX}.trashinfo"
+  done
+}
+su () {
+  CHECKSU=0
+  for FLAG in $*; do
+    [[ $FLAG == "-" ]] && CHECKSU=1
+    [[ $FLAG == "-l" ]] && CHECKSU=1
+    [[ $FLAG == "--login" ]] && CHECKSU=1
+  done
+  if [[ CHECKSU == 0 ]]; then
     echo "Use 'su -', Luke"
     /usr/bin/su - $*
   else
