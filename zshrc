@@ -199,7 +199,7 @@ su () {
     [[ $FLAG == "-l" ]] && CHECKSU=1
     [[ $FLAG == "--login" ]] && CHECKSU=1
   done
-  if [[ CHECKSU == 0 ]]; then
+  if [[ $CHECKSU == 0 ]]; then
     echo "Use 'su -', Luke"
     /usr/bin/su - $*
   else
