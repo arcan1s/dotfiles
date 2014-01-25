@@ -216,8 +216,8 @@ yatest () {
   /usr/bin/yaourt --config /etc/pactest.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
 
-alias ls='show_which ls && ls --color=auto'
-alias ll='show_which ll && ls --group-directories-first -l --human-readable'
+alias ls='show_which ls && ls --color=auto --group-directories-first'
+alias ll='show_which ll && ls -l --human-readable'
 alias lr='show_which lr && ls --recursive'
 alias la='show_which la && ll --almost-all'
 alias lx='show_which lx && ll -X --ignore-backups'
