@@ -163,6 +163,8 @@ alias zless='vimpager'
 rm () {
   # error check
   [ $# -eq 0 ] && { echo "Files are not set!"; return 1 }
+  echo "$@" | grep -qe '-h\|--help' && { echo "Usage: rm FILE..."; return 0 }
+  echo "$@" | grep -q "-" && echo "Warning: this function doesn't support any flags"
   # set trash path
   TRASHDIR="$HOME/.local/share/Trash"
   TRASHFILE="${TRASHDIR}/files"
@@ -180,7 +182,7 @@ rm () {
   [[ ! $CONFIRM =~ [yY] ]] && return 1
   # move
   for FILE in "$@"; do
-    DESTFILE="$(basename ${FILE})"
+    DESTFILE="$(basename \"${FILE}\")"
     SUFFIX='';
     ITER=0;
     while [ -e "${TRASHFILE}/${DESTFILE}${SUFFIX}" ]; do
@@ -188,8 +190,8 @@ rm () {
       ITER=$(expr ${ITER} + 1)
     done
     echo "Remove '${FILE}'"
-    mv "${FILE}" "${TRASHFILE}/${DESTFILE}${SUFFIX}"
-    echo "[Trash Info]\nPath=$(realpath ${FILE})\nDeletionDate=$(date +%Y-%m-%dT%H:%M:%S)" > "${TRASHINFO}/${DESTFILE}${SUFFIX}.trashinfo"
+    mv -- "${FILE}" "${TRASHFILE}/${DESTFILE}${SUFFIX}" || return 1
+    echo "[Trash Info]\nPath=$(realpath \"${FILE}\")\nDeletionDate=$(date +%Y-%m-%dT%H:%M:%S)" > "${TRASHINFO}/${DESTFILE}${SUFFIX}.trashinfo" || return 1
   done
 }
 su () {
