@@ -233,7 +233,7 @@ alias -s {mp3,flac}=qmmp
 alias -s {odt,doc,xls,ppt,docx,xlsx,pptx,csv}=libreoffice
 alias -s {pdf}=okular
 autoload -U pick-web-browser
-alias -s {html,htm}=opera
+alias -s {html,htm}=qupzilla
 
 # function to extract archives
 # EXAMPLE: unpack file
