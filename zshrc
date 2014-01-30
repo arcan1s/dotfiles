@@ -182,7 +182,7 @@ rm () {
   [[ ! $CONFIRM =~ [yY] ]] && return 1
   # move
   for FILE in "$@"; do
-    DESTFILE="$(basename "${FILE}")"
+    DESTFILE="$(basename -- "${FILE}")"
     SUFFIX='';
     ITER=0;
     while [ -e "${TRASHFILE}/${DESTFILE}${SUFFIX}" ]; do
@@ -190,8 +190,13 @@ rm () {
       ITER=$(expr ${ITER} + 1)
     done
     echo "Remove '${FILE}'"
-    mv -- "${FILE}" "${TRASHFILE}/${DESTFILE}${SUFFIX}" || return 1
-    echo "[Trash Info]\nPath=$(realpath "${FILE}")\nDeletionDate=$(date +%Y-%m-%dT%H:%M:%S)" > "${TRASHINFO}/${DESTFILE}${SUFFIX}.trashinfo" || return 1
+    if [ "$(dirname -- "$(realpath -- "${FILE}")")" == "${TRASHFILE}" ]; then
+      /usr/bin/rm -rf -- "${FILE}"
+      /usr/bin/rm -rf -- "${TRASHINFO}/${DESTFILE}.trashinfo"
+    else
+      mv -- "${FILE}" "${TRASHFILE}/${DESTFILE}${SUFFIX}" || return 1
+      echo "[Trash Info]\nPath=$(realpath -- "${FILE}")\nDeletionDate=$(date +%Y-%m-%dT%H:%M:%S)" > "${TRASHINFO}/${DESTFILE}${SUFFIX}.trashinfo" || return 1
+    fi
   done
 }
 su () {
