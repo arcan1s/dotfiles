@@ -1,3 +1,52 @@
+# KDM master configuration file
+#
+# Definition: the greeter is the login dialog, i.e., the part of KDM
+# which the user sees.
+#
+# You can configure every X-display individually.
+# Every display has a display name, which consists of a host name
+# (which is empty for local displays specified in {Static|Reserve}Servers),
+# a colon, and a display number. Additionally, a display belongs to a
+# display class (which can be ignored in most cases; the control center
+# does not support this feature at all).
+# Sections with display-specific settings have the formal syntax
+# "[X-" host [":" number [ "_" class ]] "-" sub-section "]"
+# You can use the "*" wildcard for host, number, and class. You may omit
+# trailing components; they are assumed to be "*" then.
+# The host part may be a domain specification like ".inf.tu-dresden.de".
+# It may also be "+", which means non-empty, i.e. remote displays only.
+# From which section a setting is actually taken is determined by these
+# rules:
+# - an exact match takes precedence over a partial match (for the host part),
+#   which in turn takes precedence over a wildcard ("+" taking precedence
+#   over "*")
+# - precedence decreases from left to right for equally exact matches
+# Example: display name "myhost:0", class "dpy".
+# [X-myhost:0_dpy] precedes
+# [X-myhost:0_*] (same as [X-myhost:0]) precedes
+# [X-myhost:*_dpy] precedes
+# [X-myhost:*_*] (same as [X-myhost]) precedes
+# [X-+:0_dpy] precedes
+# [X-*:0_dpy] precedes
+# [X-*:0_*] (same as [X-*:0]) precedes
+# [X-*:*_*] (same as [X-*])
+# These sections do NOT match this display:
+# [X-hishost], [X-myhost:0_dec], [X-*:1], [X-:*]
+# If a setting is not found in any matching section, the default is used.
+#
+# Every comment applies to the following section or key. Note that all
+# comments will be lost if you change this file with the systemsettings frontend.
+# The defaults refer to KDM's built-in values, not anything set in this file.
+#
+# Special characters need to be backslash-escaped (leading and trailing
+# spaces (\s), tab (\t), linefeed (\n), carriage return (\r) and the
+# backslash itself (\\)).
+# In lists, fields are separated with commas without whitespace in between.
+# Some command strings are subject to simplified sh-style word splitting:
+# single quotes (') and double quotes (") have the usual meaning; the backslash
+# quotes everything (not only special characters). Note that the backslashes
+# need to be doubled because of the two levels of quoting.
+
 [General]
 # This option exists solely for the purpose of a clean automatic upgrade.
 # Do not even think about changing it!
@@ -61,44 +110,44 @@ GreeterUID=kdm
 # Default is ""
 #DmrcDir=/nfs-shared/var/dmrcs
 
-[Xdmcp]                                                                         
-# Whether KDM should listen to incoming XDMCP requests.                         
-# Default is true                                                               
-Enable=false                                                                    
-# The UDP port on which KDM should listen for XDMCP requests. Do not change.    
-# Default is 177                                                                
-#Port=177                                                                       
-# File with the private keys of X-terminals. Required for XDM authentication.   
-# Default is ""                                                                 
-#KeyFile=/usr/share/config/kdm/kdmkeys                                          
-# XDMCP access control file in the usual XDM-Xaccess format.                    
-# Default is "/usr/share/config/kdm/Xaccess"                                    
-Xaccess=/usr/share/config/kdm/Xaccess                                           
-# Number of seconds to wait for display to respond after the user has           
-# selected a host from the chooser.                                             
-# Default is 15                                                                 
-#ChoiceTimeout=10                                                               
-# Strip domain name from remote display names if it is equal to the local       
-# domain.                                                                       
-# Default is true                                                               
-#RemoveDomainname=false                                                         
-# Use the numeric IP address of the incoming connection on multihomed hosts     
-# instead of the host name.                                                     
-# Default is false                                                              
-#SourceAddress=true                                                             
-# The program which is invoked to dynamically generate replies to XDMCP         
-# DirectQuery or BroadcastQuery requests.                                       
-# If empty, no program is invoked and "Willing to manage" is sent.              
-# Default is ""                                                                 
+[Xdmcp]
+# Whether KDM should listen to incoming XDMCP requests.
+# Default is true
+Enable=false
+# The UDP port on which KDM should listen for XDMCP requests. Do not change.
+# Default is 177
+#Port=177
+# File with the private keys of X-terminals. Required for XDM authentication.
+# Default is ""
+#KeyFile=/usr/share/config/kdm/kdmkeys
+# XDMCP access control file in the usual XDM-Xaccess format.
+# Default is "/usr/share/config/kdm/Xaccess"
+Xaccess=/usr/share/config/kdm/Xaccess
+# Number of seconds to wait for display to respond after the user has
+# selected a host from the chooser.
+# Default is 15
+#ChoiceTimeout=10
+# Strip domain name from remote display names if it is equal to the local
+# domain.
+# Default is true
+#RemoveDomainname=false
+# Use the numeric IP address of the incoming connection on multihomed hosts
+# instead of the host name.
+# Default is false
+#SourceAddress=true
+# The program which is invoked to dynamically generate replies to XDMCP
+# DirectQuery or BroadcastQuery requests.
+# If empty, no program is invoked and "Willing to manage" is sent.
+# Default is ""
 Willing=/usr/share/config/kdm/Xwilling
 
 [Shutdown]
 # The command (subject to word splitting) to run to halt the system.
 # Default is "/sbin/shutdown -h -P now"
-#HaltCmd=
+HaltCmd=/usr/bin/systemctl poweroff
 # The command (subject to word splitting) to run to reboot the system.
 # Default is "/sbin/shutdown -r now"
-#RebootCmd=
+RebootCmd=/usr/bin/systemctl reboot
 # Whether it is allowed to shut down the system via the global command socket.
 # Default is false
 #AllowFifo=true
@@ -116,6 +165,18 @@ Willing=/usr/share/config/kdm/Xwilling
 # Default is None
 #BootManager=Grub
 
+# Rough estimations about how many seconds KDM will spend at most on
+# - opening a connection to the X-server (OpenTime) if the attempt
+#   - times out: OpenTimeout
+#   - is refused: OpenRepeat * OpenDelay
+# - starting a local X-server (ServerTime):
+#   ServerAttempts * (ServerTimeout + OpenDelay)
+# - starting a display:
+#   - local display: ServerTime + OpenTime
+#   - foreign display: StartAttempts * OpenTime
+#   - XDMCP display: OpenTime (repeated indefinitely by client)
+
+# Core config for all displays
 [X-*-Core]
 # How long to wait before retrying to connect a display.
 # Default is 15
@@ -243,11 +304,12 @@ ClientLogFile=.xsession-errors-%d
 # Default is true
 #UseSessReg=false
 
+# Greeter config for all displays
 [X-*-Greeter]
 # Specify the widget style for the greeter. Empty means to use the
 # built-in default which currently is "Oxygen-air".
 # Default is ""
-#GUIStyle=Plastique
+GUIStyle=Bespin
 # Specify the widget color scheme for the greeter. Empty means to use the
 # built-in default which currently is "Oxygen-air".
 # Default is ""
@@ -318,7 +380,7 @@ LogoPixmap=/usr/share/apps/kdm/pics/kdelogo.png
 #SelectedUsers=root,johndoe
 # For ShowUsers=NotHidden. @<group> means all users in that group.
 # Default is ""
-HiddenUsers=git,i2p,root
+HiddenUsers=git,i2p,root,secwall,share
 # Special case of HiddenUsers: users with a non-zero UID less than this number
 # will not be shown as well.
 # Default is 0
@@ -337,7 +399,7 @@ MaxShowUID=65000
 # "PreferUser" - ... and the other way round
 # "UserOnly" - from the user's $HOME/.face[.icon]
 # Default is AdminOnly
-#FaceSource=PreferUser
+FaceSource=UserOnly
 # The directory containing the user images if FaceSource is not UserOnly.
 # Default is "/usr/share/apps/kdm/faces"
 #FaceDir=/usr/share/faces
@@ -412,11 +474,12 @@ UseTheme=true
 # The theme to use for the greeter. Can point to either a directory or an XML
 # file.
 # Default is ""
-Theme=/usr/share/apps/kdm/themes/Blue Arch Login
+Theme=/usr/share/apps/kdm/themes/modernarchlinux
 # Enable the Alt-Ctrl-D shortcut to toggle greeter theme debugging.
 # Default is false
 #AllowThemeDebug=true
 
+# Core config for local displays
 [X-:*-Core]
 # How often to try to run the X-server. Running includes executing it and
 # waiting for it to come up.
@@ -465,6 +528,7 @@ NoPassEnable=true
 # Default is ""
 NoPassUsers=arcanis
 
+# Greeter config for local displays
 [X-:*-Greeter]
 # See above
 PreselectUser=Previous
