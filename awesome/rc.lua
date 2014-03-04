@@ -42,7 +42,7 @@ end
 beautiful.init("/home/arcanis/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "sakura"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -52,9 +52,9 @@ fileman = "dolphin"
 net = "opera"
 mailcli = "kmail"
 torrent = "transmission-qt"
-musplay = "amarok"
+musplay = "qmmp"
 messager = "qutim"
-prtscreen = "/home/arcanis/bin/screenshots"
+prtscreen = "/home/arcanis/.local/bin/screenshots"
 screensaver = "xscreensaver-command -activate"
 
 -- Default modkey.
@@ -422,7 +422,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][6] } },
     { rule = { class = "psi" },
       properties = { tag = tags[1][6] } },
-    { rule = { class = "Amarok" },
+    { rule = { class = "Qmmp" },
       properties = { tag = tags[1][5] } },
     { rule = { class = "Gvim" },
       properties = { tag = tags[1][2] } },
