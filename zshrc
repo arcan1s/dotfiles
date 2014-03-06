@@ -327,7 +327,7 @@ else
   alias netctl='show_which netctl && sudo netctl'
   # MTS 3G modem
   alias mts_3g='show_which mts_3g && sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g && disown'
-  alias desktop='sudo systemctl start smbd.service && sudo systemctl start nmbd.service && sudo systemctl start sshd && sudo systemctl start kdm && exit'
+  alias desktop='show_which desktop && sudo systemctl start vsftpd.service && sudo systemctl start sshd && sudo systemctl start kdm && exit'
   alias kdm='show_which kdm && sudo systemctl start kdm && exit'
   alias synctime='show_which synctime && { sudo ntpd -qg; sudo hwclock -w; date; }'
   alias wifi-menu='show_which wifi-menu && sudo wifi-menu'
@@ -338,7 +338,9 @@ else
   alias rmmod='show_which rmmod && sudo rmmod'
   alias pacdiff='show_which pacdiff && sudo pacdiff'
   alias staging-i686-build='show_which staging-i686-build && sudo staging-i686-build'
-  alias staging-x86_64-build='show_which staging-x86_64-build && sudo staging-x86_64-build'   
+  alias staging-x86_64-build='show_which staging-x86_64-build && sudo staging-x86_64-build'
+  alias backlight='show_which backlight && sudo backlight'
+  alias svim='show_which svim && sudo vim'
 fi
 
 # global alias
