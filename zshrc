@@ -294,7 +294,7 @@ pack () {
 # function to contorl xrandr
 # EXAMPLE: projctl 1024x768
 projctl () {
-  if [ $1 ] ; then
+  if [ $1 ]; then
     if [ $1 = "-h" ]; then
       echo "Usage:   projctl [ off/resolution ]"
       return
@@ -310,6 +310,18 @@ projctl () {
   else
     echo "Using default resolution"
     xrandr --output VGA1 --mode 1366x768 --output LVDS1 --mode 1366x768
+  fi
+}
+
+twinmon () {
+  FIRSTMON="LVDS1"
+  FIRSTMONRESOL="1366x768"
+  SECONDMON="VGA1"
+  SECONDMONRESOL="1280x1024"
+  if [[ $1 == "off" ]]; then
+    xrandr --output $FIRSTMON --mode $FIRSTMONRESOL --primary --output $SECONDMON --off
+  else
+    xrandr --output $FIRSTMON --mode $FIRSTMONRESOL --primary --output $SECONDMON --mode $SECONDMONRESOL --left-of $FIRSTMON
   fi
 }
 
@@ -332,7 +344,6 @@ else
   alias synctime='show_which synctime && { sudo ntpd -qg; sudo hwclock -w; date; }'
   alias wifi-menu='show_which wifi-menu && sudo wifi-menu'
   alias dhcpcd='show_which dhcpcd && sudo dhcpcd'
-  alias journalctl='show_which journalctl && sudo journalctl'
   alias systemctl='show_which systemctl && sudo systemctl'
   alias modprobe='show_which modprobe && sudo modprobe'
   alias rmmod='show_which rmmod && sudo rmmod'
