@@ -61,7 +61,7 @@ echo "x86_64 packages: ${x86_64_PACKAGES}"
 /usr/bin/cd "${REPODIR}/i686"
 for PACKAGE in ${i686_PACKAGES}; do
   PKGNAME=$(echo ${PACKAGE} | /usr/bin/awk -F '-' '{for(i=1; i<=NF-3;i++) {printf("%s-", $i);}}' | /usr/bin/sed 's/.$//')
-  /usr/bin/ls ${PKGNAME}* && func_remove "${DBNAME}" "${PKGNAME}"
+  /usr/bin/find -name ${PKGNAME}* -type f -exec func_remove "${DBNAME}" "${PKGNAME}"
   /usr/bin/cp "${PREPAREDIR}/${PACKAGE}"{,.sig} .
 done
 /usr/bin/repo-add --new ${DBNAME}.db.tar.gz *.pkg.tar.xz
@@ -71,7 +71,7 @@ done
 /usr/bin/cd "${REPODIR}/x86_64"
 for PACKAGE in ${x86_64_PACKAGES}; do
   PKGNAME=$(echo ${PACKAGE} | /usr/bin/awk -F '-' '{for(i=1; i<=NF-3;i++) {printf("%s-", $i);}}' | /usr/bin/sed 's/.$//')
-  /usr/bin/ls ${PKGNAME}* && func_remove "${DBNAME}" "${PKGNAME}"
+  /usr/bin/find -name ${PKGNAME}* -type f -exec func_remove "${DBNAME}" "${PKGNAME}"
   /usr/bin/cp "${PREPAREDIR}/${PACKAGE}"{,.sig} .
 done
 /usr/bin/repo-add --new ${DBNAME}.db.tar.gz *.pkg.tar.xz
