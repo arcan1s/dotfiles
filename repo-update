@@ -22,8 +22,13 @@ func_build() {
   if grep "arch=('any')" PKGBUILD -q; then
     /usr/bin/sudo /usr/bin/staging-i686-build -r "${ROOT}"
   else
-    /usr/bin/sudo /usr/bin/staging-i686-build -r "${ROOT}"
-    /usr/bin/sudo /usr/bin/staging-x86_64-build -r "${ROOT}"
+    if grep "lib32" PKGBUILD -q; then
+      /usr/bin/sudo /usr/bin/staging-i686-build -r "${ROOT}"
+      /usr/bin/sudo /usr/bin/multilib-staging-build -r "${ROOT}"
+    else
+      /usr/bin/sudo /usr/bin/staging-i686-build -r "${ROOT}"
+      /usr/bin/sudo /usr/bin/staging-x86_64-build -r "${ROOT}"
+    fi
   fi
   /usr/bin/cp *.pkg.tar.xz "${PREPARE}"
 }
