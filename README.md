@@ -13,6 +13,7 @@ Description
 * `kdmrc` - settings for KDM. It is stored as `/usr/share/config/kdm/kdmrc`.
 * `local.conf` - custom settings for fontconfig. It is stored as `/etc/fonts/local.conf`
 * `qtcurve` (directory) - custom settings for QtCurve (including colors).
+* `repo-update` - simple script for building and updating own repository
 * `sakura.conf` - settings for [Sakura terminal](https://launchpad.net/sakura). It is stored in `$HOME/.config/sakura/`.
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`.
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
