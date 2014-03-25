@@ -9,7 +9,7 @@ STAGINGDIR="${HOME}/arch/staging/"
 
 # functions
 func_remove() {
-  DBPATH="$1"
+  DBNAME="$1"
   PKGNAME="$2"
   /usr/bin/repo-remove ${DBNAME}.db.tar.gz ${PKGNAME}
   /usr/bin/repo-remove ${DBNAME}.files.tar.gz ${PKGNAME}
@@ -68,7 +68,7 @@ echo "x86_64 packages: ${x86_64_PACKAGES}"
 cd "${REPODIR}/i686"
 for PACKAGE in ${i686_PACKAGES}; do
   PKGNAME=$(echo ${PACKAGE} | /usr/bin/awk -F '-' '{for(i=1; i<=NF-3;i++) {printf("%s-", $i);}}' | /usr/bin/sed 's/.$//')
-  /usr/bin/find -name "${PKGNAME}*" -type f -exec /usr/bin/bash -c "func_remove "${DBNAME}" "${PKGNAME}"" \;
+  /usr/bin/find -name "${PKGNAME}*.pkg.tar.xz" -type f -exec /usr/bin/bash -c "func_remove "${DBNAME}" "${PKGNAME}"" \;
   /usr/bin/cp "${PREPAREDIR}/${PACKAGE}"{,.sig} .
 done
 /usr/bin/repo-add --new ${DBNAME}.db.tar.gz *.pkg.tar.xz
@@ -78,7 +78,7 @@ done
 cd "${REPODIR}/x86_64"
 for PACKAGE in ${x86_64_PACKAGES}; do
   PKGNAME=$(echo ${PACKAGE} | /usr/bin/awk -F '-' '{for(i=1; i<=NF-3;i++) {printf("%s-", $i);}}' | /usr/bin/sed 's/.$//')
-  /usr/bin/find -name "${PKGNAME}*" -type f -exec /usr/bin/bash -c "func_remove "${DBNAME}" "${PKGNAME}"" \;
+  /usr/bin/find -name "${PKGNAME}*.pkg.tar.xz" -type f -exec /usr/bin/bash -c "func_remove "${DBNAME}" "${PKGNAME}"" \;
   /usr/bin/cp "${PREPAREDIR}/${PACKAGE}"{,.sig} .
 done
 /usr/bin/repo-add --new ${DBNAME}.db.tar.gz *.pkg.tar.xz
