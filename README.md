@@ -15,6 +15,7 @@ Description
 * `qtcurve` (directory) - custom settings for QtCurve (including colors).
 * `repo-update` - simple script for building and updating own repository
 * `sakura.conf` - settings for [Sakura terminal](https://launchpad.net/sakura). It is stored in `$HOME/.config/sakura/`.
+* `themes` - directory with some of my custom color schemas
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`.
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
 * `zshrc` - settings (for root and normal user) for zsh. It is stored as `$HOME/.zshrc`.

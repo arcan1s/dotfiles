@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HighlightingStyles SYSTEM "HighlightingStyles-4.3.dtd">
+<!-- Eric5 highlighting styles -->
+<!-- Saved: 2014-04-03, 21:43:13-->
+<!-- Author:  -->
+<HighlightingStyles version="4.3">
+  <Lexer name="Python2">
+    <Style style="0" color="#bbbbbb" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="False">По умолчанию</Style>
+    <Style style="1" color="#888888" paper="#323232" font="Liberation Mono,9,-1,5,50,1,0,0,0,0" eolfill="False">Комментарий</Style>
+    <Style style="2" color="#ffaa00" paper="#323232" font="Liberation Mono,9,-1,5,75,0,0,0,0,0" eolfill="False">Число</Style>
+    <Style style="3" color="#00c4cc" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="False">Строка в двойных кавычках</Style>
+    <Style style="4" color="#00c4cc" paper="#323232" font="Liberation Mono,9,-1,5,50,0,1,0,0,0" eolfill="False">Строка в одинарных кавычках</Style>
+    <Style style="5" color="#ffeb55" paper="#323232" font="Liberation Mono,9,-1,5,75,0,0,0,0,0" eolfill="False">Ключевое слово</Style>
+    <Style style="6" color="#f082b0" paper="#323232" font="Liberation Mono,9,-1,5,50,0,1,0,0,0" eolfill="False">Многострочная строка в одинарных кавычках (&lt;code&gt;'''...'''&lt;/code&gt;)</Style>
+    <Style style="7" color="#f082b0" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="False">Многострочная строка в двойных кавычках (&lt;code&gt;&quot;&quot;&quot;...&quot;&quot;&quot;&lt;/code&gt;)</Style>
+    <Style style="8" color="#80b3ff" paper="#323232" font="Liberation Mono,9,-1,5,75,0,0,0,0,0" eolfill="False">Имя класса</Style>
+    <Style style="9" color="#f29b68" paper="#323232" font="Liberation Mono,9,-1,5,75,0,0,0,0,0" eolfill="False">Имя функции/метода</Style>
+    <Style style="10" color="#80ff80" paper="#323232" font="Liberation Mono,9,-1,5,75,0,0,0,0,0" eolfill="False">Оператор</Style>
+    <Style style="11" color="#bbbbbb" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="False">Идентификатор</Style>
+    <Style style="12" color="#888888" paper="#323232" font="Liberation Mono,9,-1,5,50,1,0,0,0,0" eolfill="False">Блочный комментарий</Style>
+    <Style style="13" color="#000000" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="True">Незакрытая строка</Style>
+    <Style style="14" color="#5ca1cf" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="False">Highlighted identifier</Style>
+    <Style style="15" color="#d28300" paper="#323232" font="Liberation Mono,9,-1,5,50,0,0,0,0,0" eolfill="False">Decorator</Style>
+  </Lexer>
+</HighlightingStyles>
