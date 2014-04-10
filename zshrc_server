@@ -106,7 +106,7 @@ if [[ $EUID == 0 ]]; then
   PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
 %{$fg_bold[red]%}%n%{$reset_color%}\
 %{$fg_bold[white]%}@%{$reset_color%}\
-%{$fg_no_bold[red]%}%m %{$reset_color%}\
+%{$fg_no_bold[blue]%}%m %{$reset_color%}\
 %{$fg_bold[yellow]%}%1/%{$reset_color%}\
 %{$fg_bold[white]%}]# %{$reset_color%}"
 else
@@ -114,48 +114,21 @@ else
   PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
 %{$fg_bold[green]%}%n%{$reset_color%}\
 %{$fg_bold[white]%}@%{$reset_color%}\
-%{$fg_no_bold[green]%}%m %{$reset_color%}\
+%{$fg_no_bold[blue]%}%m %{$reset_color%}\
 %{$fg_bold[yellow]%}%1/%{$reset_color%}\
 %{$fg_bold[white]%}]$ %{$reset_color%}"
 fi
 precmd () {
-  # battery charge
-  function batcharge {
-    bat_perc=`acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//"`
-
-    if [[ $bat_perc < 15 ]]; then
-      col="%{$fg_bold[red]%}"
-    elif [[ $bat_perc < 50 ]]; then
-      col="%{$fg_bold[yellow]%}"
-    else
-      col="%{$fg_bold[green]%}"
-    fi
-
-    echo "%{$fg_bold[white]%}["$col$bat_perc"%{$fg_bold[white]%}%%]%{$reset_color%}"
-  }
   # last command
   returncode="%(?.%{$fg[green]%}.%{$fg[red]%})%?%{$resetcolor%}"
-  RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
-%{$fg_bold[cyan]%}%T%{$reset_color%}\
-%{$fg_bold[white]%}]%{$reset_color%}"\
-$(batcharge)\
-"%{$fg_bold[white]%}[%{$reset_color%}"\
+  RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}"\
 $returncode\
 "%{$fg_bold[white]%}]%{$reset_color%}"
 }
-# right prompt with time
-#RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'
 
-show_which() {
-  OUTPUT=$(which $1 | cut -d " " -f7-)
-  echo "Running '$OUTPUT'" 1>&2 
-}
 ## alias
 alias grep='grep --colour=auto'
 alias top='htop'
-alias chrommsu='chromium --proxy-server=cache.msu:3128'
-alias chromtor='chromium --proxy-server="socks://localhost:9050" --incognito'
-alias chromi2p='chromium --proxy-server="http=127.0.0.1:4444;http=127.0.0.1:4444" --incognito'
 alias df='df -k --print-type --human-readable'
 alias du='du -k --total --human-readable'
 alias less='vimpager'
@@ -219,12 +192,6 @@ pacman () {
 yaourt () {
   /usr/bin/yaourt $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
-yatest () {
-  /usr/bin/yaourt --config /etc/pactest.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
-}
-yaaur () {
-  /usr/bin/yaourt --config /etc/pacaur.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
-}
 
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -l --human-readable'
@@ -234,14 +201,6 @@ alias lx='ll -X --ignore-backups'
 alias lz='ll -S --reverse'
 alias lt='ll -t --reverse'
 alias lm='la | more'
-
-# alias -s
-alias -s {avi,mpeg,mpg,mov,m2v,mkv}=mpv
-alias -s {mp3,flac}=qmmp
-alias -s {odt,doc,xls,ppt,docx,xlsx,pptx,csv}=libreoffice
-alias -s {pdf}=okular
-autoload -U pick-web-browser
-alias -s {html,htm}=qupzilla
 
 # function to extract archives
 # EXAMPLE: unpack file
@@ -276,8 +235,8 @@ unpack () {
 pack () {
   if [ $1 ]; then
     case $1 in
-      tar.bz2)     tar -cjvf $2.tar.bz2 $2                 ;; 
-      tar.gz)      tar -czvf $2.tar.bz2 $2                 ;; 
+      tar.bz2)     tar -cjvf $2.tar.bz2 $2                 ;;
+      tar.gz)      tar -czvf $2.tar.bz2 $2                 ;;
       tar.xz)      tar -cf - $2 | xz -9 -c - > $2.tar.xz   ;;
       bz2)         bzip $2                                 ;;
       gz)          gzip -c -9 -n $2 > $2.gz                ;;
@@ -292,60 +251,18 @@ pack () {
   else
     echo "'$1' is not a valid file"
   fi
-} 
-
-# function to contorl xrandr
-# EXAMPLE: projctl 1024x768
-projctl () {
-  if [ $1 ]; then
-    if [ $1 = "-h" ]; then
-      echo "Usage:   projctl [ off/resolution ]"
-      return
-    fi
-
-    if [ $1 = "off" ]; then
-      echo "Disable VGA1"
-      xrandr --output VGA1 --off --output LVDS1 --mode 1366x768
-    else
-      echo "Using resolution: $1"
-      xrandr --output VGA1 --mode $1 --output LVDS1 --mode $1
-    fi
-  else
-    echo "Using default resolution"
-    xrandr --output VGA1 --mode 1366x768 --output LVDS1 --mode 1366x768
-  fi
-}
-
-twinmon () {
-  FIRSTMON="LVDS1"
-  FIRSTMONRESOL="1366x768"
-  SECONDMON="VGA1"
-  SECONDMONRESOL="1280x1024"
-  if [[ $1 == "off" ]]; then
-    xrandr --output $FIRSTMON --mode $FIRSTMONRESOL --primary --output $SECONDMON --off
-  else
-    xrandr --output $FIRSTMON --mode $FIRSTMONRESOL --primary --output $SECONDMON --mode $SECONDMONRESOL --left-of $FIRSTMON
-  fi
 }
 
 # sudo alias
 if [[ $EUID == 0 ]]; then
   alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
-  # MTS 3G modem
-  alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g && disown'
-  alias kdm='systemctl start kdm && exit'
   alias synctime='{ ntpd -qg; hwclock -w; date; }'
 else
   alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   alias umount='sudo umount'
   alias mount='sudo mount'
   alias netctl='sudo netctl'
-  # MTS 3G modem
-  alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g && disown'
-  alias desktop='sudo systemctl start sshd && sudo systemctl start kdm && exit'
-  alias kdm='sudo systemctl start kdm && exit'
   alias synctime='{ sudo ntpd -qg; sudo hwclock -w; date; }'
-  alias wifi-menu='sudo wifi-menu'
   alias dhcpcd='sudo dhcpcd'
   alias systemctl='sudo systemctl'
   alias modprobe='sudo modprobe'
@@ -354,8 +271,6 @@ else
   alias staging-i686-build='sudo staging-i686-build'
   alias staging-x86_64-build='sudo staging-x86_64-build'
   alias multilib-staging-build='sudo multilib-staging-build'
-  alias backlight='sudo backlight'
-  alias cpu='sudo cpu'
   alias svim='sudo vim'
   alias scat='sudo cat'
   alias sgrep='sudo grep'
@@ -375,15 +290,8 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 export EDITOR="vim"
 export PAGER="vimpager"
 
-# hash
-hash -d global=/mnt/global
-hash -d windows=/mnt/windows
-hash -d iso=/mnt/iso
-hash -d u1=/mnt/usbdev1
-hash -d u2=/mnt/usbdev2
-
 # umask
 umask 022
 
 # path
-export PATH="$PATH:$HOME/.local/bin/:/opt/gromacs_old/bin/:$HOME/bin/namd:$HOME/bin/namd_gpu"
+export PATH="$PATH:$HOME/.local/bin/"

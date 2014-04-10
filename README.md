@@ -19,3 +19,4 @@ Description
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`.
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
 * `zshrc` - settings (for root and normal user) for zsh. It is stored as `$HOME/.zshrc`.
+* `zshrc_server` - settings (for root and normal user) for zsh using on server. It is stored as `$HOME/.zshrc`.
