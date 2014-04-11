@@ -285,6 +285,9 @@ alias -g t="| tail"
 alias -g h="| head"
 alias -g dn="&> /dev/null &"
 
+# to run command ignoring aliases
+hash -d b=/usr/bin
+
 # pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
 

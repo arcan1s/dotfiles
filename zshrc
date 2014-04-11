@@ -381,6 +381,8 @@ hash -d windows=/mnt/windows
 hash -d iso=/mnt/iso
 hash -d u1=/mnt/usbdev1
 hash -d u2=/mnt/usbdev2
+# to run command ignoring aliases
+hash -d b=/usr/bin
 
 # umask
 umask 022
