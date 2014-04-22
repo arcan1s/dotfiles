@@ -44,7 +44,7 @@ ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=yellow,underline'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=yellow'
 # pattern
-ZSH_HIGHLIGHT_PATTERNS+=('\~b/* ' 'fg=green')
+ZSH_HIGHLIGHT_PATTERNS+=('\~b/rm ' 'fg=green')
 # root
 #ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 
