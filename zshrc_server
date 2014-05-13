@@ -313,3 +313,6 @@ umask 022
 
 # path
 export PATH="$PATH:$HOME/.local/bin/"
+
+# color gcc
+export GCC_COLOR="auto"

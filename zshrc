@@ -388,4 +388,7 @@ hash -d b=/usr/bin
 umask 022
 
 # path
-export PATH="$PATH:$HOME/.local/bin/:/opt/gromacs_old/bin/:$HOME/bin/namd:$HOME/bin/namd_gpu"
+export PATH="$HOME/.local/bin/:$HOME/.local/bin/namd:$HOME/.local/bin/namd_gpu:$PATH"
+
+# color gcc
+export GCC_COLOR="auto"
