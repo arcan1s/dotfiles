@@ -369,6 +369,7 @@ alias -g g="| grep"
 alias -g l="| less"
 alias -g t="| tail"
 alias -g h="| head"
+alias -g n="| wc -l"
 alias -g dn="&> /dev/null &"
 
 # pkgfile
