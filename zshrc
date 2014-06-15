@@ -101,7 +101,7 @@ unsetopt beep
 autoload zcalc
 
 # automatically log of on 10*60 sec inactivity
-[[ $EUID == 0 ]] && export TMOUT=600
+export TMOUT=600
 
 # PROMPT && RPROMPT
 if [[ $EUID == 0 ]]; then
