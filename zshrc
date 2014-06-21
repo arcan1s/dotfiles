@@ -321,13 +321,11 @@ projctl () {
 
 twinmon () {
   FIRSTMON="LVDS1"
-  FIRSTMONRESOL="1366x768"
   SECONDMON="VGA1"
-  SECONDMONRESOL="1280x1024"
   if [[ $1 == "off" ]]; then
-    xrandr --output $FIRSTMON --mode $FIRSTMONRESOL --primary --output $SECONDMON --off
+    xrandr --output $FIRSTMON --auto --primary --output $SECONDMON --off
   else
-    xrandr --output $FIRSTMON --mode $FIRSTMONRESOL --primary --output $SECONDMON --mode $SECONDMONRESOL --left-of $FIRSTMON
+    xrandr --output $FIRSTMON --auto --primary --output $SECONDMON --auto --left-of $FIRSTMON
   fi
 }
 
