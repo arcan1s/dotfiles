@@ -138,7 +138,7 @@ alias df='df -k --print-type --human-readable'
 alias du='du -k --total --human-readable'
 alias less='vimpager'
 alias zless='vimpager'
-rm () {
+rm() {
   # error check
   [ $# -eq 0 ] && { echo "Files are not set!"; return 1 }
   echo "$@" | grep -qe '-h\|--help' && { echo "Usage: rm FILE..."; return 0 }
@@ -177,7 +177,7 @@ rm () {
     fi
   done
 }
-su () {
+su() {
   CHECKSU=0
   for FLAG in $*; do
     [[ $FLAG == "-" ]] && CHECKSU=1
@@ -191,10 +191,10 @@ su () {
     /usr/bin/su $*
   fi
 }
-pacman () {
+pacman() {
   /usr/bin/sudo /usr/bin/pacman $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
-yaourt () {
+yaourt() {
   /usr/bin/yaourt $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
 
@@ -209,7 +209,7 @@ alias lm='la | more'
 
 # function to extract archives
 # EXAMPLE: unpack file
-unpack () {
+unpack() {
   if [[ -f $1 ]]; then
     case $1 in
       *.tar.bz2)   tar xjfv $1                             ;;
@@ -237,7 +237,7 @@ unpack () {
 
 # function to create archives
 # EXAMPLE: pack tar file
-pack () {
+pack() {
   if [ $1 ]; then
     case $1 in
       tar.bz2)     tar -cjvf $2.tar.bz2 $2                 ;;

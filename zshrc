@@ -151,7 +151,7 @@ $returncode\
 
 show_which() {
   OUTPUT=$(which $1 | cut -d " " -f7-)
-  echo "Running '$OUTPUT'" 1>&2 
+  echo "Running '$OUTPUT'" 1>&2
 }
 ## alias
 alias grep='grep --colour=auto'
@@ -163,7 +163,7 @@ alias df='df -k --print-type --human-readable'
 alias du='du -k --total --human-readable'
 alias less='vimpager'
 alias zless='vimpager'
-rm () {
+rm() {
   # error check
   [ $# -eq 0 ] && { echo "Files are not set!"; return 1 }
   echo "$@" | grep -qe '-h\|--help' && { echo "Usage: rm FILE..."; return 0 }
@@ -202,7 +202,7 @@ rm () {
     fi
   done
 }
-su () {
+su() {
   CHECKSU=0
   for FLAG in $*; do
     [[ $FLAG == "-" ]] && CHECKSU=1
@@ -216,16 +216,16 @@ su () {
     /usr/bin/su $*
   fi
 }
-pacman () {
+pacman() {
   /usr/bin/sudo /usr/bin/pacman $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
-yaourt () {
+yaourt() {
   /usr/bin/yaourt $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
-yatest () {
+yatest() {
   /usr/bin/yaourt --config /etc/pactest.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
-yaaur () {
+yaaur() {
   /usr/bin/yaourt --config /etc/pacaur.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
 
@@ -248,7 +248,7 @@ alias -s {html,htm}=qupzilla
 
 # function to extract archives
 # EXAMPLE: unpack file
-unpack () {
+unpack() {
   if [[ -f $1 ]]; then
     case $1 in
       *.tar.bz2)   tar xjfv $1                             ;;
@@ -276,11 +276,11 @@ unpack () {
 
 # function to create archives
 # EXAMPLE: pack tar file
-pack () {
+pack() {
   if [ $1 ]; then
     case $1 in
-      tar.bz2)     tar -cjvf $2.tar.bz2 $2                 ;; 
-      tar.gz)      tar -czvf $2.tar.bz2 $2                 ;; 
+      tar.bz2)     tar -cjvf $2.tar.bz2 $2                 ;;
+      tar.gz)      tar -czvf $2.tar.bz2 $2                 ;;
       tar.xz)      tar -cf - $2 | xz -9 -c - > $2.tar.xz   ;;
       bz2)         bzip $2                                 ;;
       gz)          gzip -c -9 -n $2 > $2.gz                ;;
@@ -295,37 +295,53 @@ pack () {
   else
     echo "'$1' is not a valid file"
   fi
-} 
+}
 
-# function to contorl xrandr
+# functions to contorl xrandr
 # EXAMPLE: projctl 1024x768
-projctl () {
-  if [ $1 ]; then
-    if [ $1 = "-h" ]; then
-      echo "Usage:   projctl [ off/resolution ]"
-      return
-    fi
-
-    if [ $1 = "off" ]; then
-      echo "Disable VGA1"
-      xrandr --output VGA1 --off --output LVDS1 --mode 1366x768
-    else
-      echo "Using resolution: $1"
-      xrandr --output VGA1 --mode $1 --output LVDS1 --mode $1
-    fi
+projctl() {
+  MONITORS="$(xrandr | grep connected | cut -d ' ' -f 1 | tr '\n' ' ')"
+  echo "Available monitors are: ${MONITORS}"
+  FIRSTMON="LVDS1"
+  SECONDMON="VGA1"
+  RESOLUTION="1366x768"
+  until [ -z $1 ]; do
+    case "$1" in
+      "-h" | "--help"    ) echo "Usage: projctl [ off/resol ] [ -o MON | --output MON ]" && exit 0 ;;
+      "-o" | "--output"  ) [ -z "$2" ] || SECONDMON="$2" && shift                                  ;;
+      *                  ) RESOLUTION="$1"                                                         ;;
+    esac
+    shift
+  done
+  if [[ "${RESOLUTION}" == "off" ]]; then
+    echo "Disable ${SECONDMON}"
+    xrandr --output ${FIRSTMON} --mode ${RESOLUTION} --output ${SECONDMON} --off
   else
-    echo "Using default resolution"
-    xrandr --output VGA1 --mode 1366x768 --output LVDS1 --mode 1366x768
+    echo "Using resolution: ${RESOLUTION}"
+    xrandr --output ${FIRSTMON} --mode ${RESOLUTION} --output ${SECONDMON} --mode ${RESOLUTION}
   fi
 }
 
-twinmon () {
+twinmon() {
+  MONITORS="$(xrandr | grep connected | cut -d ' ' -f 1 | tr '\n' ' ')"
+  echo "Available monitors are: ${MONITORS}"
   FIRSTMON="LVDS1"
   SECONDMON="VGA1"
-  if [[ $1 == "off" ]]; then
-    xrandr --output $FIRSTMON --auto --primary --output $SECONDMON --off
+  MODE="on"
+  until [ -z $1 ]; do
+    case "$1" in
+      "-h" | "--help"    ) echo "Usage: twinmon [ off ] [ -o MON | --output MON ]" && exit 0 ;;
+      "-o" | "--output"  ) [ -z "$2" ] || SECONDMON="$2" && shift                            ;;
+      "off"              ) MODE="off"                                                        ;;
+    esac
+    shift
+  done
+  if [[ "${MODE}" == "off" ]]; then
+    echo "Disable ${SECONDMON}"
+    xrandr --output ${FIRSTMON} --auto --primary --output ${SECONDMON} --off
   else
-    xrandr --output $FIRSTMON --auto --primary --output $SECONDMON --auto --left-of $FIRSTMON
+    echo "Enable ${SECONDMON}"
+    xrandr --output ${FIRSTMON} --auto --primary --output ${SECONDMON} --auto --left-of ${FIRSTMON}
   fi
 }
 
