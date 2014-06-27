@@ -289,19 +289,6 @@ alias -g h="| head"
 alias -g n="| wc -l"
 alias -g dn="&> /dev/null &"
 
-# server dirs
-hash -d music=/home/arcanis/music
-hash -d fmusic=/srv/ftp/music
-hash -d repo=/home/arcanis/repo
-hash -d frepo=/srv/ftp/repo
-hash -d x86=/home/arcanis/repo/i686
-hash -d fx86=/srv/ftp/repo/i686
-hash -d x64=/home/arcanis/repo/x86_64
-hash -d fx64=/srv/ftp/repo/x86_64
-hash -d share=/home/arcanis/share
-hash -d fshare=/srv/ftp/share
-hash -d pub=/home/arcanis/public
-hash -d fpub=/srv/ftp/public
 # to run command ignoring aliases
 hash -d b=/usr/bin
 
