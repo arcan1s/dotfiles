@@ -307,3 +307,6 @@ export PATH="$PATH:$HOME/.local/bin/"
 
 # color gcc
 export GCC_COLOR="auto"
+
+# fix urxvt
+if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"

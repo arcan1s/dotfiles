@@ -350,7 +350,7 @@ if [[ $EUID == 0 ]]; then
   alias fat32mnt='mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
   # MTS 3G modem
   alias mts_3g='eject /dev/sr1 && sleep 5 && wvdial mts3g && disown'
-  alias kdm='systemctl start kdm && exit'
+  alias sddm='systemctl start sddm && exit'
   alias synctime='{ ntpd -qg; hwclock -w; date; }'
 else
   alias fat32mnt='sudo mount -t vfat -o codepage=866,iocharset=utf8,umask=000'
@@ -359,8 +359,8 @@ else
   alias netctl='sudo netctl'
   # MTS 3G modem
   alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g && disown'
-  alias desktop='sudo systemctl start sshd && sudo systemctl start kdm && exit'
-  alias kdm='sudo systemctl start kdm && exit'
+  alias desktop='sudo systemctl start sshd && sudo systemctl start sddm && exit'
+  alias sddm='sudo systemctl start sddm && exit'
   alias synctime='{ sudo ntpd -qg; sudo hwclock -w; date; }'
   alias wifi-menu='sudo wifi-menu'
   alias dhcpcd='sudo dhcpcd'
@@ -410,3 +410,6 @@ export PATH="$HOME/.local/bin/:$HOME/.local/bin/namd:$HOME/.local/bin/namd_gpu:$
 
 # color gcc
 export GCC_COLOR="auto"
+
+# fix urxvt
+if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
