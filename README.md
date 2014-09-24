@@ -9,6 +9,7 @@ Description
 * `Bespin` (directory) - settings for [BESpin](http://kde-look.org/content/show.php/Bespin?content=63928). It is stored in `$HOME/.config/`.
 * `awesome` (directory) - settings for Awesome-WM. It is stored in `$HOME/.config/`.
 * `festival` (directory tree) - settings for festival Russian speaking.
+* `get-coord-matrix.py` - python script which calculates xinput coordinate matrix for screens
 * `kbdlayout` (files) - settings for Russian language with layout switching on CapsLock. `20-keyboard.conf` (X11 settings) is stored in `/etc/X11/xorg.conf.d/`. `my.map.gz` (keymap) is stored in `/usr/share/kbd/keymaps/i386/qwerty`.
 * `kdmrc` - settings for KDM. It is stored as `/usr/share/config/kdm/kdmrc`.
 * `local.conf` - custom settings for fontconfig. It is stored as `/etc/fonts/local.conf`
@@ -19,4 +20,5 @@ Description
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`.
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
 * `zshrc` - settings (for root and normal user) for zsh. It is stored as `$HOME/.zshrc`.
+* `zshrc_t440` - settings (for root and normal user) for zsh using on work machine. It is stored as `$HOME/.zshrc`.
 * `zshrc_server` - settings (for root and normal user) for zsh using on server. It is stored as `$HOME/.zshrc`.
