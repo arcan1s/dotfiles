@@ -77,7 +77,7 @@ setopt autocd
 
 # correct
 setopt CORRECT_ALL
-SPROMPT="Correct '%R' to '%r' ? ([Y]es/[N]o/[E]dit/[A]bort) "
+SPROMPT="Correct '%R' to '%r' ? (nyae) "
 
 # append history
 setopt APPEND_HISTORY
@@ -121,7 +121,7 @@ else
 %{$fg_bold[yellow]%}%1/%{$reset_color%}\
 %{$fg_bold[white]%}]$ %{$reset_color%}"
 fi
-precmd () {
+precmd() {
   # battery charge
   function batcharge {
     bat_perc=`acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//"`
@@ -146,8 +146,6 @@ $(batcharge)\
 $returncode\
 "%{$fg_bold[white]%}]%{$reset_color%}"
 }
-# right prompt with time
-#RPROMPT=$'%{\e[1;37m%}%T, %D%{\e[0m%}'
 
 show_which() {
   OUTPUT=$(which $1 | cut -d " " -f7-)
@@ -165,7 +163,7 @@ alias less='vimpager'
 alias zless='vimpager'
 rm() {
   # error check
-  [ $# -eq 0 ] && { echo "Files are not set!"; return 1 }
+  [ $# -eq 0 ] && { echo "Files are not set"; return 1 }
   echo "$@" | grep -qe '-h\|--help' && { echo "Usage: rm FILE..."; return 0 }
   echo "$@" | grep -q "-" && echo "Warning: this function doesn't support any flags"
   # set trash path
@@ -181,7 +179,7 @@ rm() {
   done
   # confirm
   CONFIRM=""
-  echo -n "You realy want to remove '$@'? [y/n] "; read -k1 CONFIRM; echo
+  echo -n "Do you realy want to remove '$@'? [ny] "; read -k1 CONFIRM; echo
   [[ ! $CONFIRM =~ [yY] ]] && return 1
   # move
   for FILE in "$@"; do
@@ -370,6 +368,8 @@ else
   alias pacdiff='sudo pacdiff'
   alias staging-i686-build='sudo staging-i686-build'
   alias staging-x86_64-build='sudo staging-x86_64-build'
+  alias extra-i686-build='sudo extra-i686-build'
+  alias extra-x86_64-build='sudo extra-x86_64-build'
   alias multilib-staging-build='sudo multilib-staging-build'
   alias backlight='sudo backlight'
   alias cpu='sudo cpu'
@@ -413,3 +413,9 @@ export GCC_COLOR="auto"
 
 # fix urxvt
 if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
+
+# ssh-agent
+if [[ $EUID != 0 ]]; then
+  eval $(ssh-agent) > /dev/null
+  ssh-add -l > /dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'
+fi
