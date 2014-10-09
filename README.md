@@ -21,4 +21,5 @@ Description
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
 * `zshrc` - settings (for root and normal user) for zsh. It is stored as `$HOME/.zshrc`.
 * `zshrc_t440` - settings (for root and normal user) for zsh using on work machine. It is stored as `$HOME/.zshrc`.
+* `zshrc_foreing_server` - settings (for root and normal user) for zsh using on foreing server. It is stored as `$HOME/.zshrc`.
 * `zshrc_server` - settings (for root and normal user) for zsh using on server. It is stored as `$HOME/.zshrc`.
