@@ -61,7 +61,8 @@ bindkey '\e[6~' down-line-or-history            # page-down
 # autocomplit
 autoload -U compinit
 compinit
-zstyle ':completion:*' insert-tab false         # Автокомплит для первого символа
+# first symbol autocomplete
+zstyle ':completion:*' insert-tab false
 zstyle ':completion:*' max-errors 2
 
 # prompt
@@ -77,7 +78,7 @@ setopt autocd
 
 # correct
 setopt CORRECT_ALL
-SPROMPT="Correct '%R' to '%r' ? (nyae) "
+SPROMPT="Correct '%R' to '%r' ? [nyae] "
 
 # append history
 setopt APPEND_HISTORY
@@ -305,9 +306,9 @@ projctl() {
   RESOLUTION="1366x768"
   until [ -z $1 ]; do
     case "$1" in
-      "-h" | "--help"    ) echo "Usage: projctl [ off/resol ] [ -o MON | --output MON ]" && exit 0 ;;
-      "-o" | "--output"  ) [ -z "$2" ] || SECONDMON="$2" && shift                                  ;;
-      *                  ) RESOLUTION="$1"                                                         ;;
+      "-h" | "--help"    ) echo "Usage: projctl [ off/resol ] [ -o MON | --output MON ]" && return 0 ;;
+      "-o" | "--output"  ) [ -z "$2" ] || SECONDMON="$2" && shift                                    ;;
+      *                  ) RESOLUTION="$1"                                                           ;;
     esac
     shift
   done
@@ -328,9 +329,9 @@ twinmon() {
   MODE="on"
   until [ -z $1 ]; do
     case "$1" in
-      "-h" | "--help"    ) echo "Usage: twinmon [ off ] [ -o MON | --output MON ]" && exit 0 ;;
-      "-o" | "--output"  ) [ -z "$2" ] || SECONDMON="$2" && shift                            ;;
-      "off"              ) MODE="off"                                                        ;;
+      "-h" | "--help"    ) echo "Usage: twinmon [ off ] [ -o MON | --output MON ]" && return 0 ;;
+      "-o" | "--output"  ) [ -z "$2" ] || SECONDMON="$2" && shift                              ;;
+      "off"              ) MODE="off"                                                          ;;
     esac
     shift
   done
@@ -357,7 +358,6 @@ else
   alias netctl='sudo netctl'
   # MTS 3G modem
   alias mts_3g='sudo eject /dev/sr1 && sleep 5 && sudo wvdial mts3g && disown'
-  alias desktop='sudo systemctl start sshd && sudo systemctl start sddm && exit'
   alias sddm='sudo systemctl start sddm && exit'
   alias synctime='{ sudo ntpd -qg; sudo hwclock -w; date; }'
   alias wifi-menu='sudo wifi-menu'
