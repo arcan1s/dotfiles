@@ -61,6 +61,8 @@ bindkey '\e[6~' down-line-or-history            # page-down
 # autocomplit
 autoload -U compinit
 compinit
+autoload -U bashcompinit
+bashcompinit
 # first symbol autocomplete
 zstyle ':completion:*' insert-tab false
 zstyle ':completion:*' max-errors 2

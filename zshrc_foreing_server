@@ -16,7 +16,10 @@ bindkey '\e[6~' down-line-or-history            # page-down
 # autocomplit
 autoload -U compinit
 compinit
-zstyle ':completion:*' insert-tab false         # Автокомплит для первого символа
+autoload -U bashcompinit
+bashcompinit
+# first symbol autocomplete
+zstyle ':completion:*' insert-tab false
 zstyle ':completion:*' max-errors 2
 
 # prompt
