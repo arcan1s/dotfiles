@@ -21,6 +21,8 @@ bashcompinit
 # first symbol autocomplete
 zstyle ':completion:*' insert-tab false
 zstyle ':completion:*' max-errors 2
+# correct host complete
+[[ -f ~/.ssh/config ]] && zstyle ':completion:*' hosts $(awk '/^Host .*$/ { print $2 }' ~/.ssh/config)
 
 # prompt
 autoload -U promptinit
