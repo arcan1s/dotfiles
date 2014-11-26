@@ -10,6 +10,8 @@ Description
 * `Bespin` (directory) - settings for [BESpin](http://kde-look.org/content/show.php/Bespin?content=63928). It is stored in `$HOME/.config/`.
 * `festival` (directory tree) - settings for festival Russian speaking.
 * `get-coord-matrix.py` - python script which calculates xinput coordinate matrix for screens
+* `git` (directory tree) - settings for git. Stored as `$HOME/.git`
+* `gitconfig` - settings for git. Stored as `$HOME/.gitconfig`
 * `kbdlayout` (files) - settings for Russian language with layout switching on CapsLock. `20-keyboard.conf` (X11 settings) is stored in `/etc/X11/xorg.conf.d/`. `my.map.gz` (keymap) is stored in `/usr/share/kbd/keymaps/i386/qwerty`.
 * `local.conf` - custom settings for fontconfig. It is stored as `/etc/fonts/local.conf`
 * `qtcurve` (directory) - custom settings for QtCurve (including colors).
