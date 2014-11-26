@@ -1,0 +1,5 @@
+# use vimpager instead of less
+alias less='vimpager'
+alias zless='vimpager'
+
+export PAGER="vimpager"

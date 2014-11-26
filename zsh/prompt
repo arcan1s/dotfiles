@@ -1,0 +1,41 @@
+# PROMPT && RPROMPT
+if [[ $EUID == 0 ]]; then
+# [root@host dir]#
+  PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+%{$fg_bold[red]%}%n%{$reset_color%}\
+%{$fg_bold[white]%}@%{$reset_color%}\
+%{$fg_no_bold[red]%}%m %{$reset_color%}\
+%{$fg_bold[yellow]%}%1/%{$reset_color%}\
+%{$fg_bold[white]%}]# %{$reset_color%}"
+else
+# [user@host dir]$
+  PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+%{$fg_bold[green]%}%n%{$reset_color%}\
+%{$fg_bold[white]%}@%{$reset_color%}\
+%{$fg_no_bold[green]%}%m %{$reset_color%}\
+%{$fg_bold[yellow]%}%1/%{$reset_color%}\
+%{$fg_bold[white]%}]$ %{$reset_color%}"
+fi
+precmd() {
+  # battery charge
+  function batcharge {
+    bat_perc=$(acpi | awk {'print $4;'} | sed -e "s/\s//" -e "s/%.*//")
+    if [[ ${bat_perc} < 15 ]]; then
+      col="%{$fg_bold[red]%}"
+    elif [[ ${bat_perc} < 50 ]]; then
+      col="%{$fg_bold[yellow]%}"
+    else
+      col="%{$fg_bold[green]%}"
+    fi
+    echo "%{$fg_bold[white]%}["$col$bat_perc"%{$fg_bold[white]%}%%]%{$reset_color%}"
+  }
+  # last command
+  returncode="%(?.%{$fg[green]%}.%{$fg[red]%})%?%{$resetcolor%}"
+  RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
+%{$fg_bold[cyan]%}%T%{$reset_color%}\
+%{$fg_bold[white]%}]%{$reset_color%}"\
+$(batcharge)\
+"%{$fg_bold[white]%}[%{$reset_color%}"\
+${returncode}\
+"%{$fg_bold[white]%}]%{$reset_color%}"
+}
