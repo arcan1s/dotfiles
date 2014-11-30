@@ -22,7 +22,7 @@ projctl() {
     echo "Using resolution: ${RESOLUTION}"
     xrandr --output ${FIRSTMON} --mode ${RESOLUTION} --output ${SECONDMON} --mode ${RESOLUTION}
   fi
-  xinput set-prop 10 137 $(get-coord-matrix.py)
+  xinput set-prop "ELAN Touchscreen" 140 $(get-coord-matrix.py)
 }
 
 twinmon() {
@@ -46,5 +46,5 @@ twinmon() {
     echo "Enable ${SECONDMON}"
     xrandr --output ${FIRSTMON} --auto --primary --output ${SECONDMON} --auto --left-of ${FIRSTMON}
   fi
-  xinput set-prop 10 137 $(get-coord-matrix.py)
+  xinput set-prop "ELAN Touchscreen" 140 $(get-coord-matrix.py)
 }
