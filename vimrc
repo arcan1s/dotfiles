@@ -1,84 +1,84 @@
-"" .vimrc by arcanis
-"" 2012-12-15
-
-"" Внешний вид
-" Цветовая схема
+"" appearance
+" color scheme
 colorscheme koehler
 
-" Число строк внизу и вверху экрана без прокрутки
+" count of lines w\o scrolling at the top and bottom
 set scrolloff=3
 
-" Отображение выполняемой команды
+" show running command
 set showcmd
 
-" Status-line
+" status-line
 set statusline=%t\ %y%m%r\ [%{&fileencoding}]%<\ [%{strftime(\"%d.%m.%y\",getftime(expand(\"%:p\")))}]%k%=%-14.(%l,%c%V%)\ %P
-" Всегда показывать status-line
+" always show status-line
 set laststatus=2
 
-" Мигание вместо спикера
+" blink instead of beep
 set visualbell
 
-" Подсветка синтаксиса
+" syntax higlighting
 syntax on
-" Применять типы файлов
+" apply file types
 filetype on
 filetype plugin on
-" Показывать совпадающие скобки для HTML-тегов
+" show brakets for HTML-tags
 set matchpairs+=<:>
-" Показывать первую парную скобку после ввода второй
+" show first braket after typing second one
 set showmatch
 
-" Показывать номер строки
+" show line number
 set number
-" Красная полоска на 80 символе
+" red strip at 80 symbol
 set colorcolumn=80
 
-" Включить табы в начале строки
+" enable tabs at the beginning of the line
 "set list
-" Обозначение табов в начале строки
+" show tabs
 "set listchars=tab:
 
-" Динамический перенос длинных строк
+" dymanic wrapping
 set wrap
-" Переносить словами
+" wrap on words
 set linebreak
 
 
-"" Табуляция
+"" tabs
 set tabstop=4
 set smarttab
 set et
-" Ширина
+" width
 set shiftwidth=2
-" Автоотступы
+" indents
 set ai
-" Отступы в стиле C
+" C-style indents
 set cin
 
 
-"" Поиск
-" Подсветка результатов поиска
+"" search
+" highlight search results
 set hlsearch
-" Поиск фрагмента по мере его набора
+" search on typing
 set incsearch
-" Поиск без учёта регистра символов
+" case-insensetive search
 set ignorecase
 
 
-"" Навигация
-" При вставке фрагмента сохраняет отступ
+"" navigation
+" save indents on paste
 set pastetoggle=<P>
 
-" Перемещать курсор на следующую строку при нажатии на клавиши
+" move coursor on typing
 set whichwrap=b,<,>,[,],l,h
 
 
-"" Кодировки и форматы (в порядке применения)
+"" codepages and formats
 set ffs=unix,dos,mac
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 
 
-"" Клавиатура
-" Автоопределение русских символов
+"" keyboard
+" enable russian symbols
 "set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+
+" remove spaces at the end of the lines
+autocmd BufWritePre * :%s/\s\+$//e
