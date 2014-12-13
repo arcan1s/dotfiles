@@ -109,4 +109,4 @@ if [[ ${EUID} != 0 ]]; then
 fi
 
 ## load custom settings from $HOME/.zsh
-for _SCR in $(find "${HOME}/.zsh" -type f 2> /dev/null); do source "${_SCR}"; done
+for _SCR in $(find "${HOME}/.zsh" -type 'f' -or -type 'l' 2> /dev/null); do source "${_SCR}"; done
