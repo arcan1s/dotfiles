@@ -88,7 +88,7 @@ alias -g n='| wc -l'
 alias -g dn='&> /dev/null &'
 
 # to run command ignoring aliases
-hash -d b="/usr/bin"
+hash -d b="/bin"
 
 # umask
 umask 022
