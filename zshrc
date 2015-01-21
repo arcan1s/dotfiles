@@ -88,7 +88,7 @@ alias -g n='| wc -l'
 alias -g dn='&> /dev/null &'
 
 # to run command ignoring aliases
-hash -d b="/usr/bin"
+hash -d b="/bin"
 
 # umask
 umask 022
@@ -109,4 +109,4 @@ if [[ ${EUID} != 0 ]]; then
 fi
 
 ## load custom settings from $HOME/.zsh
-for _SCR in $(find "${HOME}/.zsh" -type 'f' -or -type 'l' 2> /dev/null); do source "${_SCR}"; done
+for _SCR in $(find "${HOME}/.zsh/" -type 'f' -or -type 'l' 2> /dev/null); do source "${_SCR}"; done
