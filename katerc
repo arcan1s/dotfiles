@@ -1,0 +1,81 @@
+[CTags]
+GlobalCommand=ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.
+GlobalNumTargets=0
+
+[General]
+Config Revision=10
+Days Meta Infos=30
+Last Session=
+Modified Notification=true
+Recent File List Entry Count=10
+Restore Window Configuration=true
+Save Meta Infos=true
+Show Full Path in Title=false
+Show Menu Bar=true
+Show Status Bar=true
+Show Tab Bar=true
+Startup Session=manual
+
+[KTextEditor::Search]
+Search History=checkbox {,checkbox,checkbo,useWifi,toolti
+
+[KateSQLPlugin]
+SaveConnections=true
+
+[KateSQLPlugin][OutputCustomization][blob]
+backgroundColor=255,255,255
+font=Liberation Serif,10,-1,5,50,0,0,0,0,0
+foregroundColor=31,28,27
+
+[KateSQLPlugin][OutputCustomization][bool]
+backgroundColor=255,255,255
+font=Liberation Serif,10,-1,5,50,0,0,0,0,0
+foregroundColor=31,28,27
+
+[KateSQLPlugin][OutputCustomization][datetime]
+backgroundColor=255,255,255
+font=Liberation Serif,10,-1,5,50,0,0,0,0,0
+foregroundColor=31,28,27
+
+[KateSQLPlugin][OutputCustomization][null]
+backgroundColor=255,255,255
+font=Liberation Serif,10,-1,5,50,0,0,0,0,0
+foregroundColor=31,28,27
+
+[KateSQLPlugin][OutputCustomization][number]
+backgroundColor=255,255,255
+font=Liberation Serif,10,-1,5,50,0,0,0,0,0
+foregroundColor=31,28,27
+
+[KateSQLPlugin][OutputCustomization][text]
+backgroundColor=255,255,255
+font=Liberation Serif,10,-1,5,50,0,0,0,0,0
+foregroundColor=31,28,27
+
+[Konsole]
+AutoSyncronize=false
+SetEditor=false
+
+[MainWindow]
+Height 1080=505
+State=AAAA/wAAAAD9AAAAAAAABkAAAAMfAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAIAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAAAAAAEgBnAGQAYgBwAGwAdQBnAGkAbgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1920=956
+Window-Maximized 900x1600=true
+
+[PluginSymbolViewer]
+ExpandTree=true
+SortSymbols=true
+TreeView=true
+ViewTypes=true
+
+[filetree]
+editShade=210,181,216
+listMode=false
+shadingEnabled=true
+showFullPathOnRoots=false
+sortRole=0
+viewShade=185,178,206
+
+[project]
+autorepository=git,subversion
