@@ -13,6 +13,8 @@ Description
 * `git` (directory tree) - settings for git. Stored as `$HOME/.git`
 * `gitconfig` - settings for git. Stored as `$HOME/.gitconfig`
 * `gpg.conf` - settings for gnupg. Stored as `$HOME/.gnupg/gpg.conf`
+* `katerc` - settings for kate. Stored as `${HOME}/.config/katerc`
+* `katepartrc` - settings for kate. Stored as `${HOME}/.config/katepartrc`
 * `kdeveloprc` - settings for kdevelop. Stored as `${HOME}/.kde4/share/config/kdeveloprc`
 * `kbdlayout` (files) - settings for Russian language with layout switching on CapsLock. `20-keyboard.conf` (X11 settings) is stored in `/etc/X11/xorg.conf.d/`. `my.map.gz` (keymap) is stored in `/usr/share/kbd/keymaps/i386/qwerty`
 * `local.conf` - custom settings for fontconfig. It is stored as `/etc/fonts/local.conf`
@@ -23,6 +25,7 @@ Description
 * `qtcurve` (directory) - custom settings for QtCurve (including colors)
 * `sakura.conf` - settings for [Sakura terminal](https://launchpad.net/sakura). It is stored in `$HOME/.config/sakura/`
 * `sddm.conf` - settings for SDDM. It is stored as `/etc/sddm.conf`
+* `sysctl.d` - directory with sysctl parametrs. It is stored as `/etc/sysctl.d`
 * `themes` - directory with some of my custom color schemas
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
