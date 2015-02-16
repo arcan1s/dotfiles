@@ -2,11 +2,11 @@
 # functions to contorl xrandr
 # EXAMPLE: projctl 1024x768
 projctl() {
-  MONITORS="$(xrandr | grep connected | cut -d ' ' -f 1 | tr '\n' ' ')"
+  local MONITORS="$(xrandr | grep connected | cut -d ' ' -f 1 | tr '\n' ' ')"
   echo "Available monitors are: ${MONITORS}"
-  FIRSTMON="LVDS1"
-  SECONDMON="VGA1"
-  RESOLUTION="1366x768"
+  local FIRSTMON="LVDS1"
+  local SECONDMON="VGA1"
+  local RESOLUTION="1366x768"
   until [ -z $1 ]; do
     case "$1" in
       "-h" | "--help"    ) echo "Usage: projctl [ off/resol ] [ -o MON | --output MON ]" && return 0 ;;
@@ -25,11 +25,11 @@ projctl() {
 }
 
 twinmon() {
-  MONITORS="$(xrandr | grep connected | cut -d ' ' -f 1 | tr '\n' ' ')"
+  local MONITORS="$(xrandr | grep connected | cut -d ' ' -f 1 | tr '\n' ' ')"
   echo "Available monitors are: ${MONITORS}"
-  FIRSTMON="LVDS1"
-  SECONDMON="VGA1"
-  MODE="on"
+  local FIRSTMON="LVDS1"
+  local SECONDMON="VGA1"
+  local MODE="on"
   until [ -z $1 ]; do
     case "$1" in
       "-h" | "--help"    ) echo "Usage: twinmon [ off ] [ -o MON | --output MON ]" && return 0 ;;

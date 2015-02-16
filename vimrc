@@ -65,7 +65,7 @@ set ignorecase
 
 "" navigation
 " save indents on paste
-set pastetoggle=<P>
+set pastetoggle=P
 
 " move coursor on typing
 set whichwrap=b,<,>,[,],l,h

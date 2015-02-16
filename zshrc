@@ -80,12 +80,12 @@ alias lt='ll -t --reverse'
 alias lm='la | more'
 
 # global alias
-alias -g g='| grep'
-alias -g l='| less'
-alias -g t='| tail'
-alias -g h='| head'
-alias -g n='| wc -l'
-alias -g dn='&> /dev/null &'
+alias -g _g='| grep'
+alias -g _l='| less'
+alias -g _t='| tail'
+alias -g _h='| head'
+alias -g _n='| wc -l'
+alias -g _dn='&> /dev/null &'
 
 # to run command ignoring aliases
 hash -d b="/bin"
