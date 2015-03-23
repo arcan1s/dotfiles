@@ -27,6 +27,7 @@ Description
 * `sddm.conf` - settings for SDDM. It is stored as `/etc/sddm.conf`
 * `sysctl.d` - directory with sysctl parametrs. It is stored as `/etc/sysctl.d`
 * `themes` - directory with some of my custom color schemas
+* `tunctl` - bash script to control ssh tunnel
 * `vimrc` - settings for VIM. It is stored as `$HOME/.vimrc`
 * `Xresources` - settings for some Xorg applications (for example, urxvt). It is stored as `$HOME/.Xresources`
 * `yaourtrc` - settings for yaourt. It is stored as `/etc/yaourtrc`
