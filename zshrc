@@ -86,7 +86,6 @@ alias -g _t='| tail'
 alias -g _h='| head'
 alias -g _n='| wc -l'
 alias -g _dn='&> /dev/null &'
-alias -g home="-At repo 'ssh -A -p 5431 192.168.0.101'"
 
 # to run command ignoring aliases
 hash -d b="/bin"
