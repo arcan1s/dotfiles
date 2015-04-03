@@ -13,6 +13,7 @@ Description
 * `git` (directory tree) - settings for git. Stored as `$HOME/.git`
 * `gitconfig` - settings for git. Stored as `$HOME/.gitconfig`
 * `gpg.conf` - settings for gnupg. Stored as `$HOME/.gnupg/gpg.conf`
+* `ipython_config.py` - ipython configuration file. Stored as `$HOME/.ipython/profile_default/ipython_config.py`
 * `katerc` - settings for kate. Stored as `${HOME}/.config/katerc`
 * `katepartrc` - settings for kate. Stored as `${HOME}/.config/katepartrc`
 * `kdeveloprc` - settings for kdevelop. Stored as `${HOME}/.kde4/share/config/kdeveloprc`
