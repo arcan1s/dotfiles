@@ -544,3 +544,8 @@ c = get_config()
 c.InteractiveShellApp.exec_lines = []
 c.InteractiveShellApp.exec_lines.append('%load_ext autoreload')
 c.InteractiveShellApp.exec_lines.append('%autoreload 2')
+# logging
+c.InteractiveShellApp.exec_lines.append('import logging')
+c.InteractiveShellApp.exec_lines.append('logging.basicConfig(level = logging.DEBUG)')
+# requests
+c.InteractiveShellApp.exec_lines.append('import requests')
