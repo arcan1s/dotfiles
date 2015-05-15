@@ -102,11 +102,6 @@ export GCC_COLOR="auto"
 for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="${_DIR}:${PATH}"; done
 # fix urxvt
 if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
-# ssh-agent
-if [[ ${EUID} != 0 ]]; then
-  eval $(ssh-agent) > /dev/null
-  ssh-add -l > /dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'
-fi
 
 ## load custom settings from $HOME/.zsh
 for _SCR in $(find "${HOME}/.zsh/" -type 'f' -or -type 'l' 2> /dev/null); do source "${_SCR}"; done

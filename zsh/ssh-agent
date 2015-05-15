@@ -1,0 +1,5 @@
+if [[ ${EUID} != 0 ]]; then
+  if [[ -e "${HOME}/.ssh/id_rsa" ]]; then
+    ssh-add </dev/null
+  fi
+fi
