@@ -45,7 +45,6 @@ set linebreak
 set tabstop=4
 set smarttab
 set et
-tab sball
 set switchbuf=useopen
 " width
 set shiftwidth=2
