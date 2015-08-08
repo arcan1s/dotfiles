@@ -1,3 +1,6 @@
+# use vimcat instead of cat
+alias cat='vimcat'
+
 # use vimpager instead of less
 alias less='vimpager'
 alias zless='vimpager'
