@@ -1,5 +1,6 @@
 # use vimcat instead of cat
-alias cat='vimcat'
+# till vimpager doesn't use pipe disable it
+#alias cat='vimcat'
 
 # use vimpager instead of less
 alias less='vimpager'
