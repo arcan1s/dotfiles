@@ -5,7 +5,11 @@ set encoding=utf-8
 "" appearance
 " color scheme
 set t_Co=256
-colorscheme advantage
+try
+  colorscheme advantage
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme koehler
+endtry
 
 " count of lines w\o scrolling at the top and bottom
 set scrolloff=3
