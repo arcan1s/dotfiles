@@ -1,14 +1,15 @@
 #    yaourtrc  - Configuration for yaourt
-# 
+#
 #   See yaourtrc(5) for more information
-#   
+#
 #
 
 # General
 #AUTOSAVEBACKUPFILE=0
 #DEVELSRCDIR=""
 #DEVEL=0
-EDITOR="/usr/bin/vim"
+#VISUAL="$VISUAL"
+#EDITOR="$EDITOR"
 #FORCEENGLISH=0
 #FORCE=0
 #TMPDIR="/tmp"
@@ -31,6 +32,7 @@ SUDONOVERIF=1      # Avoid multiple sudo checks when timestamp_timeout=0
 #AURSEARCH=1
 #AURUPGRADE=0
 #AURVOTE=1
+#AURUSEGIT=0
 
 # Build
 EXPORT=2            # Export to 1: EXPORTDIR or PKGDEST
@@ -56,6 +58,7 @@ PU_NOCONFIRM=1     # Add --noconfirm to $PACMAN -U
 
 # Command
 PACMAN="/usr/bin/pacman"
+#MAKEPKG="makepkg"
 DIFFEDITCMD="/usr/bin/vimdiff"
 
 # pacdiffviewer
