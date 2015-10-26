@@ -1,6 +1,6 @@
 .vimrc=.vimrc
 .zshrc=zshrc
-.zsh=zsh
+.zsh=zsh-server
 .zlogout=zlogout
 .git=git
 .gitconfig=gitconfig
