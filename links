@@ -2,5 +2,3 @@
 .zshrc=zshrc
 .zsh=zsh-server
 .zlogout=zlogout
-.git=git
-.gitconfig=gitconfig

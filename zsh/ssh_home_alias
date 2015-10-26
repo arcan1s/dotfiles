@@ -1,1 +1,0 @@
-alias ssh-home="ssh -At repo 'ssh -A -p 5431 192.168.0.101'"
