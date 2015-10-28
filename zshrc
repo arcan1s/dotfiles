@@ -103,5 +103,5 @@ for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="$
 # fix urxvt
 if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
 
-## load custom settings from $HOME/.zsh
-for _SCR in $(find "${HOME}/.zsh/" -type 'f' -or -type 'l' 2> /dev/null); do source "${_SCR}"; done
+# load custom settings from $HOME/.zsh
+for _SCR in $(find "${HOME}/.zsh/" -type 'f' -or -type 'l' -maxdepth 1 2> /dev/null); do source "${_SCR}"; done
