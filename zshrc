@@ -103,7 +103,7 @@ for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="$
 # fix urxvt
 if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
 # load valid ssh config
-/bin/rm "${HOME}/.ssh/config"
+/bin/rm -f "${HOME}/.ssh/config"
 find "${HOME}/.ssh/conf.d" -type f -name '*.conf' -exec cat {} > "${HOME}/.ssh/config" \; 2> /dev/null
 
 # load custom settings from $HOME/.zsh
