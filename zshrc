@@ -102,6 +102,9 @@ export GCC_COLOR="auto"
 for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="${_DIR}:${PATH}"; done
 # fix urxvt
 if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
+# load valid ssh config
+/bin/rm "${HOME}/.ssh/config"
+find "${HOME}/.ssh/conf.d" -type f -name '*.conf' -exec cat {} > "${HOME}/.ssh/config" \; 2> /dev/null
 
 # load custom settings from $HOME/.zsh
 for _SCR in $(find "${HOME}/.zsh/" -type 'f' -or -type 'l' -maxdepth 1 2> /dev/null); do source "${_SCR}"; done
