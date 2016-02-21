@@ -22,7 +22,7 @@ precmd() {
     local _bat_perc=0
     local _num=0
     local _bat
-    for _bat in /sys/class/power_supply/BAT*; do 
+    for _bat in /sys/class/power_supply/BAT*; do
       let "_bat_perc += $(cat ${_bat}/capacity)"
       let "_num += 1"
     done

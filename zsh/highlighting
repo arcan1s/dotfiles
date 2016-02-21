@@ -5,7 +5,8 @@ else
     source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black'
-
+bindkey '^ ' autosuggest-accept
+bindkey '^B' autosuggest-clear
 
 # highlighting
 if [[ -a "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
