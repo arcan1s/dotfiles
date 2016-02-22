@@ -107,6 +107,6 @@ if [[ ${TERM} =~ "rxvt-unicode-*" ]] export TERM="xterm"
 find "${HOME}/.ssh/conf.d" -type f -name '*.conf' -exec cat {} > "${HOME}/.ssh/config" \; 2> /dev/null
 
 # load custom settings from $HOME/.zsh
-if [[ -a ${HOME}/.zsh/zsh-plugins ]]; then
+if [[ -a ${HOME}/.zsh-plugins ]]; then
     for _SRC in $(cat "${HOME}/.zsh-plugins"); do source "${HOME}/.zsh/${_SRC}"; done
 fi
