@@ -1,4 +1,5 @@
 .vimrc=vimrc
 .zshrc=zshrc
-.zsh=zsh-server
+.zsh=zsh
+.zsh-plugins=zsh-plugins-server
 .zlogout=zlogout
