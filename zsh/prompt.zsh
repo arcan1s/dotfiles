@@ -28,9 +28,9 @@ precmd() {
     done
     _bat_perc=$((${_bat_perc}/${_num}))
     local _col
-    if [[ ${_bat_perc} < 15 ]]; then
+    if [[ ${_bat_perc} -lt 15 ]]; then
       _col="%{$fg_bold[red]%}"
-    elif [[ ${_bat_perc} < 50 ]]; then
+    elif [[ ${_bat_perc} -lt 50 ]]; then
       _col="%{$fg_bold[yellow]%}"
     else
       _col="%{$fg_bold[green]%}"
