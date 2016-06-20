@@ -4,7 +4,7 @@ if [[ -a "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]
 else
     source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=magenta'
 bindkey '^ ' autosuggest-accept
 bindkey '^B' autosuggest-clear
 
