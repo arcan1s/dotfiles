@@ -4,7 +4,7 @@ if [[ $EUID == 0 ]]; then
   PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
 %{$fg_bold[red]%}%n%{$reset_color%}\
 %{$fg_bold[white]%}@%{$reset_color%}\
-%{$fg_no_bold[red]%}%m %{$reset_color%}\
+%{$fg_no_bold[red]%}%M %{$reset_color%}\
 %{$fg_bold[yellow]%}%1/%{$reset_color%}\
 %{$fg_bold[white]%}]# %{$reset_color%}"
 else
@@ -12,7 +12,7 @@ else
   PROMPT="%{$fg_bold[white]%}[%{$reset_color%}\
 %{$fg_bold[green]%}%n%{$reset_color%}\
 %{$fg_bold[white]%}@%{$reset_color%}\
-%{$fg_no_bold[green]%}%m %{$reset_color%}\
+%{$fg_no_bold[green]%}%M %{$reset_color%}\
 %{$fg_bold[yellow]%}%1/%{$reset_color%}\
 %{$fg_bold[white]%}]$ %{$reset_color%}"
 fi
