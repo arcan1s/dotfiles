@@ -40,7 +40,7 @@ SUDONOVERIF=1      # Avoid multiple sudo checks when timestamp_timeout=0
 EXPORT=2            # Export to 1: EXPORTDIR or PKGDEST
                     # 2: pacman cache (as root)
 #EXPORTSRC=0        # Need EXPORT>0 to be used
-#EXPORTDIR=""       # If empty, use makepkg's connfiguration (see makepkg.conf)
+#EXPORTDIR=""       # If empty, use makepkg's configuration (see makepkg.conf)
 #EXPORTDIR="/home/arcanis/arch/repo/x86_64/"
 
 # Prompt
