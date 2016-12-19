@@ -5,14 +5,16 @@ HISTSIZE=500000
 SAVEHIST=500000
 
 # bindkeys
-bindkey '^[[A'  up-line-or-search               # up arrow for back-history-search
-bindkey '^[[B'  down-line-or-search             # down arrow for fwd-history-search
-bindkey '\e[1~' beginning-of-line               # home
-bindkey '\e[2~' overwrite-mode                  # insert
-bindkey '\e[3~' delete-char                     # del
-bindkey '\e[4~' end-of-line                     # end
-bindkey '\e[5~' up-line-or-history              # page-up
-bindkey '\e[6~' down-line-or-history            # page-down
+bindkey '^[[A'  up-line-or-search                   # up arrow for back-history-search
+bindkey '^[[B'  down-line-or-search                 # down arrow for fwd-history-search
+bindkey '\e[1~' beginning-of-line                   # home
+bindkey '\e[2~' overwrite-mode                      # insert
+bindkey '\e[3~' delete-char                         # del
+bindkey '\e[4~' end-of-line                         # end
+bindkey '\e[5~' up-line-or-history                  # page-up
+bindkey '\e[6~' down-line-or-history                # page-down
+# tmux workaround http://superuser.com/questions/403355/how-do-i-get-searching-through-my-command-history-working-with-tmux-and-zshell
+bindkey '^R'    history-incremental-search-backward # search for history
 
 # autocomplit
 autoload -U compinit
