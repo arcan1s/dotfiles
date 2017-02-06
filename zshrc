@@ -71,6 +71,7 @@ alias grep='grep --colour=auto'
 alias top='htop'
 alias df='df -k --print-type --human-readable'
 alias du='du -k --total --human-readable'
+alias ssh_pohui='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -l --human-readable'
