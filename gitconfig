@@ -11,6 +11,8 @@
   ui = true
 [credential]
   helper = cache --timeout=3600
+[advice]
+  ignoredHook = false
 [push]
   default = simple
 [merge]
