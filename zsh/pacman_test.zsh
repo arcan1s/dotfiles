@@ -1,7 +1,7 @@
 # pacman commands with repo variations
-yatest() {
-  /usr/bin/yaourt --config /etc/pactest.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
+aurtest() {
+  /usr/bin/aurman --config /etc/pactest.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
-yaaur() {
-  /usr/bin/yaourt --config /etc/pacaur.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
+auraur() {
+  /usr/bin/aurman --config /etc/pacaur.conf $* && echo "$*" | grep -q "S\|R\|U" && rehash
 }
