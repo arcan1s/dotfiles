@@ -217,7 +217,7 @@ c = get_config()
 # c.TerminalInteractiveShell.banner1 = 'Python 3.4.3 (default, Mar 25 2015, 17:13:50) \nType "copyright", "credits" or "license" for more information.\n\nIPython 3.0.0 -- An enhanced Interactive Python.\n?         -> Introduction and overview of IPython\'s features.\n%quickref -> Quick reference.\nhelp      -> Python\'s own help system.\nobject?   -> Details about \'object\', use \'object??\' for extra details.\n'
 
 #
-# c.TerminalInteractiveShell.history_length = 10000
+c.TerminalInteractiveShell.history_length = 100000
 
 # 'all', 'last', 'last_expr' or 'none', specifying which nodes should be run
 # interactively (displaying output from expressions).
