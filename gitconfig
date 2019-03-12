@@ -15,6 +15,7 @@
   ignoredHook = false
 [push]
   default = simple
+  followTags = true
 [merge]
   tool = vimdiff
 [alias]
