@@ -547,5 +547,9 @@ c.InteractiveShellApp.exec_lines.append('%autoreload 2')
 # logging
 c.InteractiveShellApp.exec_lines.append('import logging')
 #c.InteractiveShellApp.exec_lines.append('logging.basicConfig(level = logging.DEBUG)')
+c.InteractiveShellApp.exec_lines.append('logging.basicConfig(level = logging.INFO)')
 # requests
+c.InteractiveShellApp.exec_lines.append('import datetime')
+c.InteractiveShellApp.exec_lines.append('import json')
 c.InteractiveShellApp.exec_lines.append('import requests')
+c.InteractiveShellApp.exec_lines.append('from decimal import Decimal')
