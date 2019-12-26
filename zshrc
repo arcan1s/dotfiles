@@ -103,8 +103,6 @@ export EDITOR="vim"
 export GCC_COLOR="auto"
 # path
 for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="${_DIR}:${PATH}"; done
-# fix urxvt
-[[ ${TERM} =~ "rxvt-unicode-*" ]] && export TERM="xterm"
 # load valid ssh config
 /bin/rm -f "${HOME}/.ssh/config"
 find "${HOME}/.ssh/conf.d" -type f -name '*.conf' -exec cat {} > "${HOME}/.ssh/config" \; 2> /dev/null

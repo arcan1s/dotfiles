@@ -1,9 +1,5 @@
 archive_functions.zsh
-custom_rm.zsh
-custom_su.zsh
 filetypes_aliases.zsh
-hash_common.zsh
-hash_desktop.zsh
 highlighting.zsh
 pacman_common.zsh
 pacman_test.zsh
@@ -15,7 +11,6 @@ ssh-agent.zsh
 sudo_aliases_common.zsh
 sudo_aliases_pc.zsh
 urltools.zsh
-vimpager.zsh
 websearch.zsh
 xrandr_e530.zsh
 xrandr_t440.zsh

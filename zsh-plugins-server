@@ -1,9 +1,7 @@
 archive_functions.zsh
-custom_rm.zsh
 highlighting.zsh
 prompt_server.zsh
 sprunge.zsh
 sudo_aliases_common.zsh
 urltools.zsh
-vimpager.zsh
 websearch.zsh
