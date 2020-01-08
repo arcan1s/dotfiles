@@ -5,12 +5,9 @@ pacman_common.zsh
 pacman_test.zsh
 pkgfile.zsh
 prompt.zsh
-prompt_server.zsh
 sprunge.zsh
 ssh-agent.zsh
 sudo_aliases_common.zsh
 sudo_aliases_pc.zsh
 urltools.zsh
 websearch.zsh
-xrandr_e530.zsh
-xrandr_t440.zsh
