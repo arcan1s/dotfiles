@@ -1,8 +1,6 @@
 [user]
   name = Evgenii Alekseev
   email = i@arcanis.me
-[init]
-  templatedir = ~/.git/templates
 [core]
   autocrlf = false
   safecrlf = false
