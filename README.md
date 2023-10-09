@@ -19,7 +19,7 @@ Description
 * `kdeveloprc` - settings for kdevelop. Stored as `${HOME}/.kde4/share/config/kdeveloprc`
 * `kbdlayout` (files) - settings for Russian language with layout switching on CapsLock. `20-keyboard.conf` (X11 settings) is stored in `/etc/X11/xorg.conf.d/`. `my.map.gz` (keymap) is stored in `/usr/share/kbd/keymaps/i386/qwerty`
 * `local.conf` - custom settings for fontconfig. It is stored as `/etc/fonts/local.conf`
-* `makepkg.conf` - settings for makepkg. It is stored as `/etc/makepkg.conf`
+* `makepkg.conf` - settings for makepkg. It is stored as `${HOME}/.makepkg.conf`
 * `mirrorlist` - pacman mirrorlist. It is stored as `/etc/pacman.d/mirrorlist`
 * `ntp.conf` - ntpd settings. It is stored as `/etc/ntp.conf`
 * `pacman.conf`, `pactest.conf`, `pacaur.conf` - settings for pacman. It is stored as `/etc/${NAME}`
