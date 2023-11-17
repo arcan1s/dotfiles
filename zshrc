@@ -101,6 +101,8 @@ umask 022
 export EDITOR="vim"
 # color gcc
 export GCC_COLOR="auto"
+# goshit
+export GOPATH="${HOME}/.local/go"
 # path
 for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="${_DIR}:${PATH}"; done
 # load valid ssh config
