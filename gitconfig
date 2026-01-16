@@ -1,6 +1,7 @@
 [user]
   name = Evgenii Alekseev
   email = i@arcanis.me
+  signingkey = 779CD2942629B7FA04AB8F172E89012331361F01
 [core]
   autocrlf = false
   safecrlf = false
