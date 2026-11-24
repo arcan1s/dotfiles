@@ -105,9 +105,6 @@ export GCC_COLOR="auto"
 export GOPATH="${HOME}/.local/go"
 # path
 for _DIR in $(find "${HOME}/.local/bin" -type d 2> /dev/null); do export PATH="${_DIR}:${PATH}"; done
-# load valid ssh config
-/bin/rm -f "${HOME}/.ssh/config"
-find "${HOME}/.ssh/conf.d" -type f -name '*.conf' -exec cat {} > "${HOME}/.ssh/config" \; 2> /dev/null
 
 # load custom settings from $HOME/.zsh
 if [[ -a ${HOME}/.zsh-plugins ]]; then
